@@ -1,7 +1,7 @@
-package models;
+package question.model;
 
-import models.Enums.Difficulty;
-import models.Enums.Type;
+import question.model.Enums.Difficulty;
+import question.model.Enums.Type;
 
 public class Question {
 

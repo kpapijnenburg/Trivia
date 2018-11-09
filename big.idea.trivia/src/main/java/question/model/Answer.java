@@ -1,4 +1,4 @@
-package models;
+package question.model;
 
 public class Answer {
     private String correctAnswer;

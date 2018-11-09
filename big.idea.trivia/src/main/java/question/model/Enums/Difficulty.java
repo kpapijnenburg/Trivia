@@ -1,4 +1,4 @@
-package models.Enums;
+package question.model.Enums;
 
 public enum Difficulty {
     EASY,

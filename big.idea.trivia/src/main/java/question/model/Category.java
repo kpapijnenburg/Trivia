@@ -1,6 +1,6 @@
-package models;
+package question.model;
 
-public class Category {
+class Category {
     private String name;
     private int Id;
 }
