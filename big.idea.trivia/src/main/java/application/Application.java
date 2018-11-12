@@ -1,4 +1,4 @@
-package application;
+package main.java.application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import user.model.User;
+import main.java.user.model.User;
+
+import javax.swing.*;
+import java.io.IOException;
 
 
 public class Application extends javafx.application.Application {
@@ -17,9 +20,10 @@ public class Application extends javafx.application.Application {
     public TextField txt_password;
 
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login_ui.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getClassLoader().getResource("main/resources/login_ui.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -27,13 +31,17 @@ public class Application extends javafx.application.Application {
     }
 
     @FXML
-    public void btnClicked(ActionEvent actionEvent) {
+    public void btnClicked(ActionEvent actionEvent) throws IOException {
         String name = txt_name.getText();
         String password = txt_password.getText();
 
-        User user = new User(name, password);
+        UserService userService = new UserService(name,password);
 
-
-
+        try {
+            User user = userService.login();
+            JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!" );
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Username or password incorrect");
+        }
     }
 }
