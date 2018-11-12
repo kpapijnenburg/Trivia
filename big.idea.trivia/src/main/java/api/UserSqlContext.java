@@ -11,7 +11,7 @@ import java.util.List;
 public class UserSqlContext implements IUserContext {
 
     //todo database opzetten en sql schrijven.
-    ArrayList<User> users;
+    private ArrayList<User> users;
 
 
     public UserSqlContext() {
