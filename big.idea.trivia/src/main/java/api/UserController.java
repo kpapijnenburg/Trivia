@@ -14,13 +14,7 @@ public class UserController {
 
     @RequestMapping(value = "/user" , method = RequestMethod.GET)
     public User login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password) throws Exception {
-        try{
-            return repository.login(name, password);
-
-        }catch (Exception e){
-            e.getMessage();
-            throw e;
-        }
+        return repository.login(name, password);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
