@@ -1,4 +1,5 @@
-package game.model;
+package main.java.game.model;
+
 
 public class Game {
     private int id;

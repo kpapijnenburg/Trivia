@@ -1,7 +1,6 @@
-package game.model;
+package main.java.game.model;
 
-import user.model.User;
-
+import main.java.user.model.User;
 class Player extends User {
     private int id;
     private int strikes;
