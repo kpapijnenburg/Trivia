@@ -19,10 +19,6 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void register (@RequestParam(value = "name") String name, @RequestParam(value = "password")String password){
-        try{
         repository.register(name, password);
-        } catch (Exception e){
-            throw e;
-        }
     }
 }

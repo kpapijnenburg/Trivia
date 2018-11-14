@@ -19,6 +19,10 @@ public class Application extends javafx.application.Application {
     public TextField txt_name;
     public Button btn_login;
     public TextField txt_password;
+    public TextField txt_registerPage_password;
+    public TextField txt_registerPage_name;
+    public Button btn_registerPage_register;
+    public Button btn_registerPage_back;
 
     private Scene login,register, homepage;
 
@@ -81,5 +85,22 @@ public class Application extends javafx.application.Application {
 
         Stage stageToClose = (Stage) btn_login.getScene().getWindow();
         stageToClose.close();
+    }
+
+    public void btnRegisterRegisterPageClicked(ActionEvent actionEvent) {
+        String name = txt_registerPage_name.getText();
+        String password = txt_registerPage_password.getText();
+
+        User user = new User(name, password);
+
+        UserService userService = new UserService();
+
+        try {
+            userService.register(user);
+            JOptionPane.showMessageDialog(null, "User succesfully registered.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

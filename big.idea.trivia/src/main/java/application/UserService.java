@@ -59,4 +59,8 @@ public class UserService {
 
         return jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), User.class);
     }
+
+    void register(main.java.user.model.User user) throws IOException {
+        //todo converteren naar JSON en door sturen naar API?
+    }
 }
