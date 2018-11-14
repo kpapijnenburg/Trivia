@@ -40,7 +40,7 @@
                GridPane.rowIndex="2"/>
     <TextField id="txt_name" fx:id="txt_name" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="1"
                GridPane.rowIndex="1"/>
-    <Button id="btn_login" fx:id="btn_login" mnemonicParsing="false" onAction="#btnClicked" prefHeight="25.0"
+    <Button id="btn_login" fx:id="btn_login" mnemonicParsing="false" onAction="#btnLoginClicked" prefHeight="25.0"
             prefWidth="59.0" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Button mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Button mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#btnRegisterClicked"/>
 </GridPane>

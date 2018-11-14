@@ -1,6 +1,7 @@
 package api;
 
 
+import main.java.api.IUserContext;
 import main.java.user.model.User;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ class UserRepository {
 
     private main.java.api.IUserContext context;
 
-    UserRepository(main.java.api.IUserContext context) {
+    UserRepository(IUserContext context) {
         this.context = context;
     }
 

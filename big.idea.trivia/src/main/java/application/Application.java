@@ -1,5 +1,6 @@
 package application;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,36 +20,66 @@ public class Application extends javafx.application.Application {
     public Button btn_login;
     public TextField txt_password;
 
+    private Scene login,register, homepage;
+
+    private User currentUser;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login_ui.fxml")));
-
-        Scene scene = new Scene(root, 387, 157);
-
+        this.login = new Scene(root, 387, 157);
         primaryStage.setTitle("Welcome");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(login);
         primaryStage.show();
     }
 
     @FXML
-    public void btnClicked() {
+    public void btnLoginClicked() throws IOException {
+        // Get user input from fields
         String name = txt_name.getText();
         String password = txt_password.getText();
 
+        // Create necessary service.
         UserService userService = new UserService();
 
+        // Check if fields have been filled in.
         if (name.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Username or password is empty");
         }
-
+        
         else {
-
+        // Try to login the user with the specified username and password.
             try {
                 User user = userService.login(name, password);
+                // Set the currentUser to the logged in user.
+                currentUser = user;
                 JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!");
+            // Catch incorrect user info errors.
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Username or password incorrect");
+            } finally {
+            // After succesful login the homepage UI scene is created and loaded.
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homepage_ui.fxml")));
+                Stage stage = new Stage();
+                this.homepage = new Scene(root);
+                stage.setScene(homepage);
+                stage.show();
+                
+            // the current stage is closed.
+                Stage stageToClose = (Stage) btn_login.getScene().getWindow();
+                stageToClose.close();
             }
         }
+    }
+
+    public void btnRegisterClicked(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register_ui.fxml")));
+        Stage stage = new Stage();
+        this.register = new Scene(root);
+        stage.setScene(register);
+        stage.show();
+
+        Stage stageToClose = (Stage) btn_login.getScene().getWindow();
+        stageToClose.close();
     }
 }
