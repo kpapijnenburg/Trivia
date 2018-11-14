@@ -1,4 +1,4 @@
-package main.java.application;
+package application;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -14,7 +14,7 @@ import java.net.URL;
 public class UserService {
     private String name;
     private String password;
-    private static String baseUrl = "http://localhost:8080/user?";
+    private static String baseUrl = "http://localhost:8090/user?";
     private Gson jsonConverter = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
@@ -35,19 +35,25 @@ public class UserService {
         this.password = password;
     }
 
+    UserService() {
+
+    }
+
     public UserService(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    private URL buildUrl() throws MalformedURLException {
+
+    private URL buildUrl(String name, String password) throws MalformedURLException {
         return new URL(baseUrl
                 + "name=" + name
                 + "&password=" + password);
     }
 
-    public User login() throws IOException {
-        URL url = buildUrl();
+    User login(String name, String password) throws IOException {
+
+        URL url = buildUrl(name, password);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 

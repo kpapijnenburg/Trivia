@@ -1,20 +1,19 @@
-package main.java.api;
+package api;
 
 
 import main.java.user.model.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class UserRepository {
+class UserRepository {
 
-    private IUserContext context;
+    private main.java.api.IUserContext context;
 
-    public UserRepository(IUserContext context) {
+    UserRepository(main.java.api.IUserContext context) {
         this.context = context;
     }
 
-    public User login(String name, String password) throws Exception {
+    User login(String name, String password) throws Exception {
         ArrayList<User> users = getAll();
         User userToReturn = null;
 
@@ -32,11 +31,11 @@ public class UserRepository {
     }
 
 
-    public void register(String name, String password) {
+    void register(String name, String password) {
         //todo context toevoegen
     }
 
-    public ArrayList<User> getAll() {
+    private ArrayList<User> getAll() {
         return context.getAll();
     }
 }

@@ -1,26 +1,46 @@
-package main.java.api;
+package api;
 
 
 import main.java.user.model.User;
 
+import java.sql.*;
 import java.util.ArrayList;
 
-public class UserSqlContext implements IUserContext {
-
-    //todo database opzetten en sql schrijven.
-    private ArrayList<User> users;
-
-
-    public UserSqlContext() {
-        users = new ArrayList<User>();
-
-        users.add(new User(0, "jan", "test"));
-        users.add(new User(1, "admin", "admin"));
-        users.add(new User(2, "koen", "test"));
-    }
+public class UserSqlContext implements main.java.api.IUserContext {
 
     @Override
     public ArrayList<User> getAll() {
-        return this.users;
+        ArrayList<User> users = new ArrayList<>();
+
+        try{
+            //Set up connection
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://mssql.fhict.local;database=dbi388613", "dbi388613", "wachtwoord");
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM Trivia.[User]";
+
+            // Execute query
+            ResultSet result = statement.executeQuery(query);
+
+            // Add items to list
+            while (result.next()){
+                users.add(new User(
+                        result.getInt("id"),
+                        result.getString("name"),
+                        result.getString("password")
+                ));
+            }
+
+            // Close connections
+            result.close();
+            statement.close();
+            connection.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
+
 }
