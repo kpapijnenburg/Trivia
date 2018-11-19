@@ -1,5 +1,6 @@
 package application;
 
+import api.exceptions.NonUniqueUsernameException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.user.model.User;
+import user.model.User;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class Application extends javafx.application.Application {
     public Button btn_registerPage_register;
     public Button btn_registerPage_back;
 
-    private Scene login,register, homepage;
+    private Scene login, register, homepage;
 
     private User currentUser;
 
@@ -49,27 +50,26 @@ public class Application extends javafx.application.Application {
         // Check if fields have been filled in.
         if (name.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Username or password is empty");
-        }
-        
-        else {
-        // Try to login the user with the specified username and password.
+        } else {
+            // Try to login the user with the specified username and password.
+
             try {
                 User user = userService.login(name, password);
                 // Set the currentUser to the logged in user.
                 currentUser = user;
                 JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!");
-            // Catch incorrect user info errors.
+                // Catch incorrect user info errors.
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Username or password incorrect");
+                JOptionPane.showMessageDialog(null, e.getMessage());
             } finally {
-            // After succesful login the homepage UI scene is created and loaded.
+                // After succesful login the homepage UI scene is created and loaded.
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homepage_ui.fxml")));
                 Stage stage = new Stage();
                 this.homepage = new Scene(root);
                 stage.setScene(homepage);
                 stage.show();
-                
-            // the current stage is closed.
+
+                // the current stage is closed.
                 Stage stageToClose = (Stage) btn_login.getScene().getWindow();
                 stageToClose.close();
             }
@@ -97,9 +97,11 @@ public class Application extends javafx.application.Application {
 
         try {
             userService.register(user);
-            JOptionPane.showMessageDialog(null, "User succesfully registered.");
+            JOptionPane.showMessageDialog(null, "User successfully registered.");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NonUniqueUsernameException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }

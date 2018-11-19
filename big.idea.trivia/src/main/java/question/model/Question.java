@@ -1,12 +1,10 @@
 package question.model;
 
-import question.model.Enums.Difficulty;
 import question.model.Enums.Type;
 
 public class Question {
 
     private Category category;
-    private Difficulty difficulty;
     private Type type;
     private Answer[] answers;
 
@@ -17,14 +15,6 @@ public class Question {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
     }
 
     public Type getType() {
@@ -48,9 +38,8 @@ public class Question {
 
     }
 
-    public Question(Category category, Difficulty difficulty, Type type, Answer[] answers) {
+    public Question(Category category, Type type, Answer[] answers) {
         this.category = category;
-        this.difficulty = difficulty;
         this.type = type;
         this.answers = answers;
     }

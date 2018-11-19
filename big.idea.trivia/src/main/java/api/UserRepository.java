@@ -1,19 +1,21 @@
 package api;
 
 
-import main.java.user.model.User;
+import api.exceptions.IncorrectCredentialsException;
+import api.exceptions.NonUniqueUsernameException;
+import user.model.User;
 
 import java.util.ArrayList;
 
-class UserRepository {
+public class UserRepository {
 
     private IUserContext context;
 
-    UserRepository(IUserContext context) {
+    public UserRepository(IUserContext context) {
         this.context = context;
     }
 
-    User login(String name, String password) throws Exception {
+    public User login(String name, String password) throws IncorrectCredentialsException {
         ArrayList<User> users = getAll();
         User userToReturn = null;
 
@@ -24,18 +26,22 @@ class UserRepository {
         }
 
         if (userToReturn == null){
-            throw new Exception();
-        } else {
-            return userToReturn;
+            throw new IncorrectCredentialsException("Username or password is incorrect.");
         }
+
+        return userToReturn;
     }
 
 
-    void register(String name, String password) {
-        //todo context toevoegen
+    public void register(User user) throws NonUniqueUsernameException {
+        if (!context.create(user)){
+            throw new NonUniqueUsernameException("Username is already taken.");
+        }
     }
 
     private ArrayList<User> getAll() {
         return context.getAll();
     }
+
+
 }

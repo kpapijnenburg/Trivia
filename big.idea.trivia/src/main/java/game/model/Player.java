@@ -1,6 +1,8 @@
-package main.java.game.model;
+package game.model;
 
-import main.java.user.model.User;
+
+import user.model.User;
+
 class Player extends User {
     private int id;
     private int strikes;
@@ -37,15 +39,15 @@ class Player extends User {
 
     }
 
-    public Player(int id, int strikes, int score) {
-        this.id = id;
+    public Player(int strikes, int score) {
+        this.id = super.getId();
         this.strikes = strikes;
         this.score = score;
     }
 
-    public Player(String name, String password, int id, int strikes, int score) {
+    public Player(String name, String password, int strikes, int score) {
         super(name, password);
-        this.id = id;
+        this.id = super.getId();
         this.strikes = strikes;
         this.score = score;
     }
