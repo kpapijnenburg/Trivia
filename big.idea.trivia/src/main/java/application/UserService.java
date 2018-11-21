@@ -45,7 +45,7 @@ public class UserService {
         this.password = password;
     }
 
-    UserService() {
+    public UserService() {
 
     }
 
@@ -56,7 +56,7 @@ public class UserService {
                 + "&password=" + password);
     }
 
-    User login(String name, String password) throws IOException {
+    public User login(String name, String password) throws IOException {
         URL url = buildUrl(name, password);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -65,7 +65,7 @@ public class UserService {
 
     }
 
-    void register(User user) throws IOException, NonUniqueUsernameException {
+    public void register(User user) throws IOException, NonUniqueUsernameException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(baseUrl);
 
@@ -75,7 +75,7 @@ public class UserService {
         httpPost.setEntity(new UrlEncodedFormEntity(params));
 
         CloseableHttpResponse response = client.execute(httpPost);
-        if (response.getStatusLine().getStatusCode() != 200){
+        if (response.getStatusLine().getStatusCode() != 200) {
             throw new NonUniqueUsernameException("Username is already taken.");
         }
         client.close();
