@@ -13,7 +13,7 @@
    <center>
       <VBox spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnSinglePlayerClicked" prefHeight="40.0" prefWidth="600.0" text="Singleplayer game">
+            <Button fx:id="btn_singleplayer" mnemonicParsing="false" onAction="#btnSinglePlayerClicked" prefHeight="40.0" prefWidth="600.0" text="Singleplayer game">
                <font>
                   <Font size="27.0" />
                </font>

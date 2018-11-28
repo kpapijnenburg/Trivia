@@ -24,4 +24,19 @@ public class Application extends javafx.application.Application {
         primaryStage.show();
     }
 
+    public static Stage openStage(String fxmlResource) throws IOException {
+        Parent root;
+
+        root = FXMLLoader.load(Objects.requireNonNull(Application.class.getClassLoader().getResource(fxmlResource)));
+
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        return stage;
+    }
+
+
 }

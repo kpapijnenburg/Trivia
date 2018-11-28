@@ -1,20 +1,16 @@
 package application.uicontrollers;
 
 import api.exceptions.NonUniqueUsernameException;
+import application.Application;
 import application.UserService;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import user.model.User;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class RegisterUIController {
     public TextField txt_name;
@@ -35,12 +31,7 @@ public class RegisterUIController {
             userService.register(user);
             JOptionPane.showMessageDialog(null, "User successfully registered.");
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login_ui.fxml.fxml")));
-            Stage stage = new Stage();
-            stage.setResizable(false);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            Application.openStage("login_ui.fxml");
 
         } catch (
                 IOException e) {
@@ -51,7 +42,7 @@ public class RegisterUIController {
         }
     }
 
-    public void btnBackClicked(ActionEvent actionEvent) {
-        //todo terug gaan naar login pagina
+    public void btnBackClicked(ActionEvent actionEvent) throws IOException {
+        Application.openStage("login_ui.fxml");
     }
 }

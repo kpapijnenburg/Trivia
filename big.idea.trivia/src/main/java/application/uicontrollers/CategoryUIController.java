@@ -1,13 +1,11 @@
 package application.uicontrollers;
 
 import api.opentrivia.OpenTriviaDBService;
+import application.Application;
 import game.model.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,7 +13,6 @@ import javafx.stage.Stage;
 import question.model.Category;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class CategoryUIController {
     public Button btn_choose;
@@ -38,19 +35,11 @@ public class CategoryUIController {
         game = Game.getInstance();
         Category category = cmb_category.getValue();
 
-        if (category == null){
+        if (category == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a category.");
             alert.showAndWait();
-        }
-        else {
-
-
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("game_ui.fxml")));
-            Stage stage = new Stage();
-            stage.setResizable(false);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        } else {
+            Application.openStage("game_ui.fxml");
 
             Stage stageToClose = (Stage) btn_choose.getScene().getWindow();
             stageToClose.close();

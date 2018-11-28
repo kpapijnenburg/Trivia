@@ -4,9 +4,6 @@ import application.Application;
 import application.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,7 +12,6 @@ import user.model.User;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class LoginUIController {
 
@@ -25,7 +21,7 @@ public class LoginUIController {
     public PasswordField txt_password;
 
     @FXML
-    public void btnLoginClicked(ActionEvent actionEvent) throws IOException {
+    public void btnLoginClicked(ActionEvent actionEvent) {
         // Get user input from fields
         String name = txt_name.getText();
         String password = txt_password.getText();
@@ -45,12 +41,7 @@ public class LoginUIController {
                 JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!");
 
                 // After succesful login the homepage UI scene is created and loaded.
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homepage_ui.fxml")));
-                Stage stage = new Stage();
-                stage.setResizable(false);
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+                Application.openStage("homepage_ui.fmxl");
 
                 // the current stage is closed.
                 Stage stageToClose = (Stage) btn_login.getScene().getWindow();
@@ -65,12 +56,7 @@ public class LoginUIController {
     }
 
     public void btnRegisterClicked(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register_ui.fxml")));
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Application.openStage("register_ui.fxml");
 
         Stage stageToClose = (Stage) btn_login.getScene().getWindow();
         stageToClose.close();

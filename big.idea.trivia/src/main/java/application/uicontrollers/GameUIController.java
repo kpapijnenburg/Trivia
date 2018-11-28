@@ -5,15 +5,11 @@ import application.Application;
 import game.model.Game;
 import game.model.Player;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import question.model.Enums.Difficulty;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
 
 public class GameUIController {
@@ -81,13 +77,10 @@ public class GameUIController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
+            Application.openStage("homepage_ui.fxml");
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("homepage_ui.fxml")));
-            Stage stage = new Stage();
-            stage.setResizable(false);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
+            stageToClose.close();
         }
     }
 
@@ -108,12 +101,10 @@ public class GameUIController {
     }
 
     private void categoryPrompt() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("category_ui.fxml")));
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Application.openStage("category_ui.fxml");
+
+        Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
+        stageToClose.close();
 
     }
 }
