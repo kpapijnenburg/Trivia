@@ -22,7 +22,7 @@ public class Player extends User {
     }
 
     public void setStrikes(int strikes) {
-        this.strikes = strikes;
+        this.strikes += strikes;
     }
 
     public int getScore() {
@@ -30,7 +30,7 @@ public class Player extends User {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        this.score += score;
     }
     //endregion
 

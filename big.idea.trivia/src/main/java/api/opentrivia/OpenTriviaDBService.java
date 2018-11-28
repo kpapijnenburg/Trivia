@@ -40,7 +40,7 @@ public class OpenTriviaDBService {
         return categories;
     }
 
-    public List<Question> getQuestions(Game game) throws IOException {
+    public ArrayList<Question> getQuestions(Game game) throws IOException {
         int category = game.getCategory().getId();
         String difficulty = game.getDifficulty().toString().toLowerCase();
 
@@ -50,7 +50,7 @@ public class OpenTriviaDBService {
 
         JsonObject json = jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), JsonObject.class);
 
-        List<Question> questions = new ArrayList<>();
+        ArrayList<Question> questions = new ArrayList<>();
 
         for (JsonElement element: json.getAsJsonArray("results")){
             JsonObject object = (JsonObject) element;

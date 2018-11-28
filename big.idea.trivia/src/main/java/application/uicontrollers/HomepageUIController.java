@@ -48,10 +48,10 @@ public class HomepageUIController {
         if (result.get() == easy) {
             game.setDifficulty(Difficulty.EASY);
         }
-        else if (result.get() == easy) {
+        else if (result.get() == medium) {
             game.setDifficulty(Difficulty.MEDIUM);
         }
-        else if (result.get() == easy) {
+        else if (result.get() == hard) {
             game.setDifficulty(Difficulty.HARD);
         }
 

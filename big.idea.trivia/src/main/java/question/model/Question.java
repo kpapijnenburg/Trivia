@@ -33,6 +33,15 @@ public class Question {
     public void setAnswers(Answers answers) {
         this.answers = answers;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     //endregion
 
     public Question() {
