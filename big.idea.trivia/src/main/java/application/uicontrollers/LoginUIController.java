@@ -28,7 +28,7 @@ public class LoginUIController {
     public void btnLoginClicked(ActionEvent actionEvent) throws IOException {
         // Get user input from fields
         String name = txt_name.getText();
-        String password = String.valueOf(txt_password.getUserData());
+        String password = txt_password.getText();
 
         // Create necessary service.
         UserService userService = new UserService();

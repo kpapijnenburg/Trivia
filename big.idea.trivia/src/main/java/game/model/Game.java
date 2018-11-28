@@ -4,11 +4,16 @@ package game.model;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
+import java.util.ArrayList;
+
 public class Game {
+
+    //todo category toevoegen aan game.
+
     private int id;
-    private Player[] players;
+    private ArrayList<Player> players;
     private Difficulty difficulty;
-    private Question[] questions;
+    private ArrayList<Question> questions;
     //region Getter/Setter
 
     public int getId() {
@@ -19,11 +24,11 @@ public class Game {
         this.id = id;
     }
 
-    public Player[] getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Player[] players) {
+    public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
 
@@ -35,25 +40,39 @@ public class Game {
         this.difficulty = difficulty;
     }
 
-    public Question[] getQuestions() {
+    public ArrayList<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Question[] questions) {
+    public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
 
     //endregion
 
+    private static Game instance = null;
 
     public Game() {
-
+        players = new ArrayList<>();
+        questions = new ArrayList<>();
     }
 
-    public Game(int id, Player[] players, Difficulty difficulty, Question[] questions) {
+    public Game(int id, Difficulty difficulty, ArrayList<Question> questions) {
         this.id = id;
-        this.players = players;
+        this.players = new ArrayList<>();
         this.difficulty = difficulty;
         this.questions = questions;
+    }
+
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game();
+        }
+
+        return instance;
+    }
+
+    public void addPlayer(Player player){
+        this.players.add(player);
     }
 }

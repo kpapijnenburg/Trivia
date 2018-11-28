@@ -3,7 +3,7 @@ package game.model;
 
 import user.model.User;
 
-class Player extends User {
+public class Player extends User {
     private int id;
     private int strikes;
     private int score;

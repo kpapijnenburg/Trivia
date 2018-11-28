@@ -52,6 +52,6 @@ public class RegisterUIController {
     }
 
     public void btnBackClicked(ActionEvent actionEvent) {
-
+        //todo terug gaan naar login pagina
     }
 }
