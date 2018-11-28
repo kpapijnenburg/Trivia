@@ -1,8 +1,10 @@
 package question.model;
 
-public class Answer {
+import java.util.ArrayList;
+
+public class Answers {
     private String correctAnswer;
-    private String[] falseAnswers;
+    private ArrayList<String> falseAnswers;
 
     //region Getter/Setter
     public String getCorrectAnswer() {
@@ -13,21 +15,21 @@ public class Answer {
         this.correctAnswer = correctAnswer;
     }
 
-    public String[] getFalseAnswers() {
+    public ArrayList<String> getFalseAnswers() {
         return falseAnswers;
     }
 
-    public void setFalseAnswers(String[] falseAnswers) {
+    public void setFalseAnswers(ArrayList<String> falseAnswers) {
         this.falseAnswers = falseAnswers;
     }
     //endregion
 
-    public Answer(String correctAnswer, String[] falseAnswers) {
+    public Answers(String correctAnswer, ArrayList<String> falseAnswers) {
         this.correctAnswer = correctAnswer;
         this.falseAnswers = falseAnswers;
     }
 
-    public Answer() {
+    public Answers() {
 
     }
 }

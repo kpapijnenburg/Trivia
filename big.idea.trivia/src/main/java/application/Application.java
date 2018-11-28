@@ -49,5 +49,4 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
-
 }

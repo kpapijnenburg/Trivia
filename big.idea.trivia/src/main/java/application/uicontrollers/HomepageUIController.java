@@ -31,8 +31,6 @@ public class HomepageUIController {
 
     @FXML
     public void btnSinglePlayerClicked(ActionEvent actionEvent) throws IOException {
-        application.openStage("game_ui.fxml");
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Difficulty");
         alert.setContentText("Choose a difficulty for the game.");
@@ -56,6 +54,8 @@ public class HomepageUIController {
         else if (result.get() == easy) {
             game.setDifficulty(Difficulty.HARD);
         }
+
+        application.openStage("category_ui.fxml");
 
         Player player = new Player(Application.currentUser.getName(), Application.currentUser.getPassword(),0,0);
         game.addPlayer(player);

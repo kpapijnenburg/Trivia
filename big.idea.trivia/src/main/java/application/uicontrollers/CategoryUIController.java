@@ -13,15 +13,17 @@ import javafx.stage.Stage;
 import question.model.Category;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CategoryUIController {
     private Application application;
 
     public Button btn_choose;
-    public ComboBox<Category> cmb_category;
+    public ComboBox<String> cmb_category;
 
     private OpenTriviaDBService openTriviaDBService;
     private Game game;
+    private ObservableList<Category> categories;
 
     public CategoryUIController() {
         openTriviaDBService = new OpenTriviaDBService();
@@ -29,15 +31,33 @@ public class CategoryUIController {
 
     public void initialize() throws IOException {
         this.application = Application.getInstance();
+        game = Game.getInstance();
+        categories = FXCollections.observableArrayList(openTriviaDBService.getCategories());
 
-        ObservableList<Category> categories = FXCollections.observableArrayList(openTriviaDBService.getCategories());
-        cmb_category.setItems(categories);
+        ArrayList<String> names = new ArrayList<>();
+
+        for (Category category: categories){
+            names.add(category.getName());
+        }
+
+        ObservableList<String> observableList = FXCollections.observableList(names);
+
+        cmb_category.setItems(observableList);
     }
 
 
     public void btnChooseClicked(ActionEvent actionEvent) throws IOException {
-        game = Game.getInstance();
-        Category category = cmb_category.getValue();
+        String name = cmb_category.getValue();
+
+        Category category = null;
+
+        for (Category categoryInList: categories){
+            if (categoryInList.getName().equals(name)){
+                category = categoryInList;
+            }
+        }
+
+        game.setCategory(category);
 
         if (category == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a category.");
