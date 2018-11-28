@@ -1,6 +1,7 @@
 package game.model;
 
 
+import question.model.Category;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
@@ -8,12 +9,11 @@ import java.util.ArrayList;
 
 public class Game {
 
-    //todo category toevoegen aan game.
-
     private int id;
     private ArrayList<Player> players;
     private Difficulty difficulty;
     private ArrayList<Question> questions;
+    private Category category;
     //region Getter/Setter
 
     public int getId() {
@@ -46,6 +46,14 @@ public class Game {
 
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     //endregion

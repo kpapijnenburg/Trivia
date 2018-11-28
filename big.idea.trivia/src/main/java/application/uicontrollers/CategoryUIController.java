@@ -15,6 +15,8 @@ import question.model.Category;
 import java.io.IOException;
 
 public class CategoryUIController {
+    private Application application;
+
     public Button btn_choose;
     public ComboBox<Category> cmb_category;
 
@@ -26,6 +28,8 @@ public class CategoryUIController {
     }
 
     public void initialize() throws IOException {
+        this.application = Application.getInstance();
+
         ObservableList<Category> categories = FXCollections.observableArrayList(openTriviaDBService.getCategories());
         cmb_category.setItems(categories);
     }
@@ -39,7 +43,7 @@ public class CategoryUIController {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a category.");
             alert.showAndWait();
         } else {
-            Application.openStage("game_ui.fxml");
+            application.openStage("game_ui.fxml");
 
             Stage stageToClose = (Stage) btn_choose.getScene().getWindow();
             stageToClose.close();

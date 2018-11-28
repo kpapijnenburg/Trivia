@@ -14,8 +14,20 @@ public class Application extends javafx.application.Application {
 
     public static User currentUser;
 
+    private static Application instance = null;
+
+    public static Application getInstance() {
+        if (instance == null) {
+            instance = new Application();
+        }
+
+        return instance;
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
+        getInstance();
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login_ui.fxml")));
         Scene scene = new Scene(root);
         primaryStage.setResizable(false);
@@ -24,18 +36,17 @@ public class Application extends javafx.application.Application {
         primaryStage.show();
     }
 
-    public static Stage openStage(String fxmlResource) throws IOException {
+    public void openStage(String fxmlResource) throws IOException {
         Parent root;
 
-        root = FXMLLoader.load(Objects.requireNonNull(Application.class.getClassLoader().getResource(fxmlResource)));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/"+fxmlResource));
+        root = loader.load();
 
         Stage stage = new Stage();
         stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-        return stage;
     }
 
 

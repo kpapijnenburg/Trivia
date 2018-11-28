@@ -15,13 +15,19 @@ import java.io.IOException;
 
 public class LoginUIController {
 
+    private Application application;
+
     public TextField txt_name;
     public Button btn_login;
     public Button btn_register;
     public PasswordField txt_password;
 
+    public void initialize(){
+        this.application = Application.getInstance();
+    }
+
     @FXML
-    public void btnLoginClicked(ActionEvent actionEvent) {
+    public void btnLoginClicked(ActionEvent actionEvent) throws IOException {
         // Get user input from fields
         String name = txt_name.getText();
         String password = txt_password.getText();
@@ -40,23 +46,23 @@ public class LoginUIController {
                 Application.currentUser = user;
                 JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!");
 
-                // After succesful login the homepage UI scene is created and loaded.
-                Application.openStage("homepage_ui.fmxl");
-
-                // the current stage is closed.
-                Stage stageToClose = (Stage) btn_login.getScene().getWindow();
-                stageToClose.close();
-
                 // Catch incorrect user info errors.
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
 
+            // After succesful login the homepage UI scene is created and loaded.
+            application.openStage("homepage_ui.fxml");
+
+            // the current stage is closed.
+            Stage stageToClose = (Stage) btn_login.getScene().getWindow();
+            stageToClose.close();
+
         }
     }
 
     public void btnRegisterClicked(ActionEvent actionEvent) throws IOException {
-        Application.openStage("register_ui.fxml");
+        application.openStage("register_ui.fxml");
 
         Stage stageToClose = (Stage) btn_login.getScene().getWindow();
         stageToClose.close();

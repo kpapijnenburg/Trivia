@@ -1,13 +1,10 @@
 package application.uicontrollers;
 
-import api.opentrivia.OpenTriviaDBService;
 import application.Application;
 import game.model.Game;
-import game.model.Player;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import question.model.Enums.Difficulty;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -23,42 +20,14 @@ public class GameUIController {
     public Button btn_answerD;
 
     private Game game;
-    private OpenTriviaDBService openTriviaDBService = new OpenTriviaDBService();
+    private Application application;
 
     public GameUIController(){
 
     }
 
     public void initialize(){
-        //todo wordt iedere keer weergevem als scherm wordt geopent.
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Difficulty");
-        alert.setContentText("Choose a difficulty for the game.");
-
-        ButtonType easy = new ButtonType("Easy");
-        ButtonType medium = new ButtonType("Medium");
-        ButtonType hard = new ButtonType("Hard");
-
-        alert.getButtonTypes().setAll(easy, medium, hard);
-
-        game = Game.getInstance();
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == easy) {
-            game.setDifficulty(Difficulty.EASY);
-        }
-        else if (result.get() == easy) {
-            game.setDifficulty(Difficulty.MEDIUM);
-        }
-        else if (result.get() == easy) {
-            game.setDifficulty(Difficulty.HARD);
-        }
-
-        this.setGame(game);
-
-        Player player = new Player(Application.currentUser.getName(), Application.currentUser.getPassword(),0,0);
-        game.addPlayer(player);
+        application = Application.getInstance();
 
         try {
             categoryPrompt();
@@ -77,7 +46,7 @@ public class GameUIController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Application.openStage("homepage_ui.fxml");
+            application.openStage("homepage_ui.fxml");
 
             Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
             stageToClose.close();
@@ -96,12 +65,8 @@ public class GameUIController {
     public void btnAnswerDClicked(ActionEvent actionEvent) {
     }
 
-    private void setGame(Game game) {
-        this.game = game;
-    }
-
     private void categoryPrompt() throws IOException {
-        Application.openStage("category_ui.fxml");
+        application.openStage("category_ui.fxml");
 
         Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
         stageToClose.close();

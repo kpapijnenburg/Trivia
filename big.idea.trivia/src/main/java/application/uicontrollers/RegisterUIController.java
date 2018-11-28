@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import user.model.User;
 
 import javax.swing.*;
@@ -18,6 +19,11 @@ public class RegisterUIController {
     public Button btn_register;
     public Button btn_back;
 
+    private Application application;
+
+    public void initialize(){
+        this.application = Application.getInstance();
+    }
 
     public void btnRegisterClicked(ActionEvent actionEvent) {
         String name = txt_name.getText();
@@ -31,7 +37,10 @@ public class RegisterUIController {
             userService.register(user);
             JOptionPane.showMessageDialog(null, "User successfully registered.");
 
-            Application.openStage("login_ui.fxml");
+            application.openStage("login_ui.fxml");
+
+            Stage stageToClose = (Stage) btn_back.getScene().getWindow();
+            stageToClose.close();
 
         } catch (
                 IOException e) {
@@ -43,6 +52,9 @@ public class RegisterUIController {
     }
 
     public void btnBackClicked(ActionEvent actionEvent) throws IOException {
-        Application.openStage("login_ui.fxml");
+        application.openStage("login_ui.fxml");
+
+        Stage stageToClose = (Stage) btn_back.getScene().getWindow();
+        stageToClose.close();
     }
 }
