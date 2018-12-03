@@ -59,6 +59,7 @@ public class OpenTriviaDBService {
             String correctAnswer = object.get("correct_answer").getAsString();
             ArrayList<String> incorrectAnswers = new ArrayList<>();
 
+
             for (JsonElement answer: object.getAsJsonArray("incorrect_answers")){
                 incorrectAnswers.add(answer.toString());
             }

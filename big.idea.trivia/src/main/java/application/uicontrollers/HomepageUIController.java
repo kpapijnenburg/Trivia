@@ -57,7 +57,7 @@ public class HomepageUIController {
 
         application.openStage("category_ui.fxml");
 
-        Player player = new Player(Application.currentUser.getName(), Application.currentUser.getPassword(),0,0);
+        Player player = new Player(0,0);
         game.addPlayer(player);
 
         Stage stageToClose = (Stage) btn_singleplayer.getScene().getWindow();

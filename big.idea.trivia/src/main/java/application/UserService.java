@@ -1,6 +1,7 @@
 package application;
 
 import api.exceptions.NonUniqueUsernameException;
+import api.interfaces.IUserService;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService {
+public class UserService implements IUserService {
     private String name;
     private String password;
     private static String baseUrl = "http://localhost:8090/user?";

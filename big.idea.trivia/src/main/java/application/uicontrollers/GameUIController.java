@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-public class GameUIController {
+public class GameUIController  {
+    //todo antwoorden controleren in de repository.
+    //todo OpentriviaService interface maken en implementeren.
+    //todo antwoorden worden dubbel toegevoegd.
+
     public Label lb_score;
     public Label lb_strikes;
     public Button btn_quit;
