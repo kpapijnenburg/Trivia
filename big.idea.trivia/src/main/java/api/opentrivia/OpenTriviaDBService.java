@@ -2,6 +2,7 @@ package api.opentrivia;
 
 import com.google.gson.*;
 import game.model.Game;
+import org.apache.commons.lang.StringEscapeUtils;
 import question.model.Answers;
 import question.model.Category;
 import question.model.Question;
@@ -12,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class OpenTriviaDBService {
     private Gson jsonConverter = new GsonBuilder()
@@ -55,13 +57,12 @@ public class OpenTriviaDBService {
         for (JsonElement element: json.getAsJsonArray("results")){
             JsonObject object = (JsonObject) element;
 
-            String question = object.get("question").getAsString();
+            String question = StringEscapeUtils.unescapeHtml(object.get("question").getAsString());
             String correctAnswer = object.get("correct_answer").getAsString();
             ArrayList<String> incorrectAnswers = new ArrayList<>();
 
-
             for (JsonElement answer: object.getAsJsonArray("incorrect_answers")){
-                incorrectAnswers.add(answer.toString());
+                incorrectAnswers.add(answer.getAsString());
             }
 
             Answers answers = new Answers(correctAnswer, incorrectAnswers);

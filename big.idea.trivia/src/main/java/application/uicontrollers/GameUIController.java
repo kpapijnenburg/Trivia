@@ -10,18 +10,19 @@ import javafx.stage.Stage;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-public class GameUIController  {
+public class GameUIController {
     //todo OpentriviaService interface maken en implementeren.
 
     public Label lb_score;
     public Label lb_strikes;
     public Button btn_quit;
-    public TextField txt_question;
+    public TextArea txt_question;
     public Button btn_answerA;
     public Button btn_answerB;
     public Button btn_answerC;
@@ -99,7 +100,7 @@ public class GameUIController  {
 
     private void getQuestion() throws IOException {
         Collections.shuffle(questions);
-        if (questions.size() == 0){
+        if (questions.size() == 0) {
             application.openStage("category_ui.fxml");
 
             Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
@@ -115,24 +116,30 @@ public class GameUIController  {
     }
 
     private void setButtons() {
+        resetButtons();
         Collections.shuffle(buttons);
 
         for (int i = 0; i < currentQuestion.getAnswers().getFalseAnswers().size(); i++) {
             buttons.get(i).setText(currentQuestion.getAnswers().getFalseAnswers().get(i));
         }
 
-        for (Button button: buttons){
-            if (button.getText().equals("")){
+        for (Button button : buttons) {
+            if (button.getText().equals("")) {
                 button.setText(currentQuestion.getAnswers().getCorrectAnswer());
             }
         }
 
     }
 
+    private void resetButtons() {
+        for (Button button : buttons) {
+            button.setText("");
+        }
+    }
+
     private void setQuestionText(String text) {
         txt_question.setText(text);
     }
-
 
 
     private void updateLabels() {
@@ -144,11 +151,13 @@ public class GameUIController  {
 
 
     private void checkAnswer(String answer) throws IOException {
-        if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)){
+        if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)) {
             awardPoints();
-        }
-        else {
+            JOptionPane.showMessageDialog(null, "Correct answer!");
+
+        } else {
             awardStrike();
+            JOptionPane.showMessageDialog(null, "False answer!");
         }
 
         updateLabels();
@@ -158,7 +167,7 @@ public class GameUIController  {
 
     private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
-        if (game.getPlayers().get(0).getStrikes() >= 3){
+        if (game.getPlayers().get(0).getStrikes() >= 3) {
             gameService.saveSinglePlayer(game);
 
             application.openStage("homepage_ui.fxml");
@@ -173,13 +182,13 @@ public class GameUIController  {
     private void awardPoints() {
         int points = 0;
 
-        if (game.getDifficulty() == Difficulty.EASY){
+        if (game.getDifficulty() == Difficulty.EASY) {
             points = 1;
         }
-        if (game.getDifficulty() == Difficulty.MEDIUM){
+        if (game.getDifficulty() == Difficulty.MEDIUM) {
             points = 2;
         }
-        if (game.getDifficulty() == Difficulty.HARD){
+        if (game.getDifficulty() == Difficulty.HARD) {
             points = 3;
         }
 
