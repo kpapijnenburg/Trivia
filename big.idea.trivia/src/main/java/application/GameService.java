@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameService implements IGameService {
-    private String baseUrl =  "http://localhost:8090/game?";
+    private String baseUrl =  "http://localhost:8090/game";
 
     @Override
     public void saveSinglePlayer(Game game) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(baseUrl);
+        HttpPost httpPost = new HttpPost(baseUrl + "/savesingleplayer?");
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("score", Integer.toString(game.getPlayers().get(0).getScore())));

@@ -1,4 +1,4 @@
-package api;
+package api.game;
 
 public class GameRepository {
     private final IGameContext context;

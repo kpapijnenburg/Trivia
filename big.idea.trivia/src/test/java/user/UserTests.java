@@ -1,6 +1,6 @@
 package user;
 
-import api.UserRepository;
+import api.User.UserRepository;
 import api.exceptions.IncorrectCredentialsException;
 import api.exceptions.NonUniqueUsernameException;
 import org.junit.Assert;

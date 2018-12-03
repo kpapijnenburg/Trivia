@@ -22,7 +22,7 @@ public class LoginUIController {
     public Button btn_register;
     public PasswordField txt_password;
 
-    public void initialize(){
+    public void initialize() {
         this.application = Application.getInstance();
     }
 
@@ -46,17 +46,17 @@ public class LoginUIController {
                 Application.currentUser = user;
                 JOptionPane.showMessageDialog(null, "Welcome " + user.getName() + "!");
 
+                // After succesful login the homepage UI scene is created and loaded.
+                application.openStage("homepage_ui.fxml");
+
+                // the current stage is closed.
+                Stage stageToClose = (Stage) btn_login.getScene().getWindow();
+                stageToClose.close();
+
                 // Catch incorrect user info errors.
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, "Username or password incorrect.");
             }
-
-            // After succesful login the homepage UI scene is created and loaded.
-            application.openStage("homepage_ui.fxml");
-
-            // the current stage is closed.
-            Stage stageToClose = (Stage) btn_login.getScene().getWindow();
-            stageToClose.close();
 
         }
     }

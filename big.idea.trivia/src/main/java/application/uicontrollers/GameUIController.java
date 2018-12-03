@@ -163,11 +163,16 @@ public class GameUIController  {
         game.getPlayers().get(0).setStrikes(1);
         if (game.getPlayers().get(0).getStrikes() > 3){
             gameService.saveSinglePlayer(game);
+
+            application.openStage("homepage_ui.fxml");
+
+            Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
+            stageToClose.close();
         }
 
     }
 
-    //todo punten worden niet opgetelt.
+
     private void awardPoints() {
         int points = 0;
 

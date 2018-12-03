@@ -1,6 +1,6 @@
 package user;
 
-import api.IUserContext;
+import api.User.IUserContext;
 import user.model.User;
 
 import java.util.ArrayList;

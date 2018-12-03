@@ -39,8 +39,8 @@ public class Player extends User {
 
     }
 
-    public Player(int strikes, int score) {
-        this.id = super.getId();
+    public Player(int id, int strikes, int score) {
+        this.id = id;
         this.strikes = strikes;
         this.score = score;
     }

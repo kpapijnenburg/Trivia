@@ -1,4 +1,4 @@
-package api;
+package api.User;
 
 
 import user.model.User;
