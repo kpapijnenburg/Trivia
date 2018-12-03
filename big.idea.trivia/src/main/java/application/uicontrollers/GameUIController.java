@@ -59,7 +59,6 @@ public class GameUIController  {
         buttons.add(btn_answerD);
 
         getQuestion();
-        setButtons();
         updateLabels();
 
     }
@@ -115,7 +114,6 @@ public class GameUIController  {
 
     }
 
-    //todo antwoorden worden dubbel toegevoegd.
     private void setButtons() {
         Collections.shuffle(buttons);
 
@@ -155,13 +153,12 @@ public class GameUIController  {
 
         updateLabels();
         getQuestion();
-        setButtons();
 
     }
 
     private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
-        if (game.getPlayers().get(0).getStrikes() > 3){
+        if (game.getPlayers().get(0).getStrikes() >= 3){
             gameService.saveSinglePlayer(game);
 
             application.openStage("homepage_ui.fxml");
