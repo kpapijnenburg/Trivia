@@ -2,6 +2,7 @@ package application.uicontrollers;
 
 import api.opentrivia.OpenTriviaDBService;
 import application.Application;
+import application.GameService;
 import game.model.Game;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -15,9 +16,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 public class GameUIController  {
-    //todo antwoorden controleren in de repository.
     //todo OpentriviaService interface maken en implementeren.
-    //todo antwoorden worden dubbel toegevoegd.
 
     public Label lb_score;
     public Label lb_strikes;
@@ -31,6 +30,7 @@ public class GameUIController  {
     private Game game;
     private Application application;
     private OpenTriviaDBService openTriviaDBService;
+    private GameService gameService;
     private ArrayList<Button> buttons;
     private ArrayList<Question> questions;
     private Question currentQuestion;
@@ -39,6 +39,7 @@ public class GameUIController  {
         this.application = Application.getInstance();
         this.game = Game.getInstance();
         openTriviaDBService = new OpenTriviaDBService();
+        this.gameService = new GameService();
         buttons = new ArrayList<>();
         questions = new ArrayList<>();
     }
@@ -70,6 +71,7 @@ public class GameUIController  {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
+            gameService.saveSinglePlayer(game);
             application.openStage("homepage_ui.fxml");
 
             Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
@@ -113,6 +115,7 @@ public class GameUIController  {
 
     }
 
+    //todo antwoorden worden dubbel toegevoegd.
     private void setButtons() {
         Collections.shuffle(buttons);
 
@@ -132,6 +135,16 @@ public class GameUIController  {
         txt_question.setText(text);
     }
 
+
+
+    private void updateLabels() {
+        lb_strikes.setText("" + game.getPlayers().get(0).getStrikes());
+        lb_score.setText("" + game.getPlayers().get(0).getScore());
+    }
+
+    //todo antwoorden controleren in de repository.
+
+
     private void checkAnswer(String answer) throws IOException {
         if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)){
             awardPoints();
@@ -146,19 +159,15 @@ public class GameUIController  {
 
     }
 
-    private void updateLabels() {
-        lb_strikes.setText("" + game.getPlayers().get(0).getStrikes());
-        lb_score.setText("" + game.getPlayers().get(0).getScore());
-    }
-
-    private void awardStrike() {
+    private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
         if (game.getPlayers().get(0).getStrikes() > 3){
-            //todo game over
+            gameService.saveSinglePlayer(game);
         }
 
     }
 
+    //todo punten worden niet opgetelt.
     private void awardPoints() {
         int points = 0;
 
