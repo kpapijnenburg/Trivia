@@ -52,7 +52,7 @@ public class QuestionTestContext implements IQuestionContext {
     }
 
     @Override
-    public Answer getAnswer(int questionId) {
+    public Answer getCorrectAnswer(int questionId) {
 
         for (Question question: questions){
             if (question.getId() == questionId){

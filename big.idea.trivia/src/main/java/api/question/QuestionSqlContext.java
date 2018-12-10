@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionSqlContext implements IQuestionContext {
-    //todo conext implementeren.
-
     @Override
     public List<Question> getQuestions(int categoryId, Difficulty difficulty) throws ClassNotFoundException, SQLException {
         ArrayList<Question> questions = new ArrayList<>();
