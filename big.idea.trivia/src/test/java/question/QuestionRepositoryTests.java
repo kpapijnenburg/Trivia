@@ -15,7 +15,7 @@ public class QuestionRepositoryTests {
 
     @Test
     public void getQuestions_ShouldReturnThreeQuestions_WhenInvoked() throws SQLException, ClassNotFoundException {
-        ArrayList<Question> questions = (ArrayList<Question>) repository.getQuestions(1, Difficulty.EASY);
+        ArrayList<Question> questions = (ArrayList<Question>) repository.getQuestions(1, "easy");
 
         Assert.assertEquals(3, questions.size());
     }

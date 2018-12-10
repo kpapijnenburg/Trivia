@@ -2,6 +2,7 @@ package application.uicontrollers;
 
 import application.Application;
 import application.GameService;
+import application.QuestionService;
 import game.model.Game;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import question.model.Enums.Difficulty;
 import question.model.Question;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -29,22 +31,25 @@ public class GameUIController {
     private Game game;
     private Application application;
     private GameService gameService;
+    private QuestionService questionService;
+
     private ArrayList<Button> buttons;
     private ArrayList<Question> questions;
     private Question currentQuestion;
 
-    public GameUIController() {
+    public GameUIController() throws MalformedURLException {
         this.application = Application.getInstance();
         this.game = Game.getInstance();
         this.gameService = new GameService();
+        this.questionService = new QuestionService();
+
         buttons = new ArrayList<>();
         questions = new ArrayList<>();
     }
 
     public void initialize() throws IOException {
         if (game.getQuestions().size() == 0) {
-            //todo opentriviaDbService verwijderen en vervangen met question service.
-//                questions = openTriviaDBService.getQuestions(game);
+            questions = (ArrayList<Question>) questionService.getQuestions(game);
         }
 
         buttons.add(btn_answerA);
@@ -92,7 +97,6 @@ public class GameUIController {
     }
 
     private void getQuestion() throws IOException {
-        Collections.shuffle(questions);
         if (questions.size() == 0) {
             application.openStage("category_ui.fxml");
 
@@ -112,16 +116,9 @@ public class GameUIController {
         resetButtons();
         Collections.shuffle(buttons);
 
-        //todo question repository gebruiken ipv opentriviadb
-//        for (int i = 0; i < currentQuestion.getAnswers().getFalseAnswers().size(); i++) {
-//            buttons.get(i).setText(currentQuestion.getAnswers().getFalseAnswers().get(i));
-//        }
-//
-//        for (Button button : buttons) {
-//            if (button.getText().equals("")) {
-//                button.setText(currentQuestion.getAnswers().getCorrectAnswer());
-//            }
-//        }
+        for (int i = 0; i < currentQuestion.getAnswers().size(); i++){
+            buttons.get(i).setText(currentQuestion.getAnswers().get(i).getAnswer());
+        }
 
     }
 
@@ -140,8 +137,6 @@ public class GameUIController {
         lb_strikes.setText("" + game.getPlayers().get(0).getStrikes());
         lb_score.setText("" + game.getPlayers().get(0).getScore());
     }
-
-    //todo antwoorden controleren in de repository.
 
 
     private void checkAnswer(String answer) throws IOException {

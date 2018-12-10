@@ -1,7 +1,6 @@
 package api.question;
 
 import question.model.Answer;
-import question.model.Enums.Difficulty;
 import question.model.Question;
 
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ public class QuestionRepository {
         this.context = context;
     }
 
-    public List<Question> getQuestions(int categoryId, Difficulty difficulty) throws SQLException, ClassNotFoundException {
+    public List<Question> getQuestions(int categoryId, String difficulty) throws SQLException, ClassNotFoundException {
         return context.getQuestions(categoryId, difficulty);
     }
 

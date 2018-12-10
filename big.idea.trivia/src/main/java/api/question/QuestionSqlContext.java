@@ -1,16 +1,16 @@
 package api.question;
 
 import question.model.Answer;
-import question.model.Enums.Difficulty;
 import question.model.Question;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class QuestionSqlContext implements IQuestionContext {
     @Override
-    public List<Question> getQuestions(int categoryId, Difficulty difficulty) throws ClassNotFoundException, SQLException {
+    public List<Question> getQuestions(int categoryId, String difficulty) throws ClassNotFoundException, SQLException {
         ArrayList<Question> questions = new ArrayList<>();
 
         try {
@@ -18,14 +18,11 @@ public class QuestionSqlContext implements IQuestionContext {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection connection = DriverManager.getConnection("jdbc:sqlserver://mssql.fhict.local;database=dbi388613", "dbi388613", "wachtwoord");
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT TOP 3 * FROM Trivia.Question\n" +
-                            "WHERE Trivia.Question.Categoryid = ?" +
-                            "AND Trivia.Question.difficulty = ?" +
-                            "ORDER BY NEWID()"
+                    "SELECT TOP 3 * FROM Trivia.Question WHERE Trivia.Question.Categoryid = ? AND Trivia.Question.difficulty = ? ORDER BY NEWID()"
             );
 
             statement.setInt(1, categoryId);
-            statement.setString(2, difficulty.toString());
+            statement.setString(2, difficulty);
 
             ResultSet result = statement.executeQuery();
 
@@ -82,17 +79,19 @@ public class QuestionSqlContext implements IQuestionContext {
                     ));
                 }
 
+                Collections.shuffle(answers);
                 question.setAnswers(answers);
 
                 //Close connections
                 result.close();
                 statement.close();
-                connection.close();
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        connection.close();
     }
 
 

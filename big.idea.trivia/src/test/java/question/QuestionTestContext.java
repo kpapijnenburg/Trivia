@@ -13,11 +13,11 @@ public class QuestionTestContext implements IQuestionContext {
     ArrayList<Question> questions;
 
     public QuestionTestContext(int categoryId, Difficulty difficulty) {
-        this.questions = (ArrayList<Question>) getQuestions(categoryId, difficulty);
+        this.questions = (ArrayList<Question>) getQuestions(categoryId, difficulty.toString());
     }
 
     @Override
-    public List<Question> getQuestions(int categoryId, Difficulty difficulty) {
+    public List<Question> getQuestions(int categoryId, String difficulty) {
         ArrayList<Answer> answers = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
