@@ -6,15 +6,16 @@ import org.junit.Test;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QuestionRepositoryTests {
     ArrayList<Question> questions;
-    QuestionRepository repository = new QuestionRepository(new QuestionTestContext());
+    QuestionRepository repository = new QuestionRepository(new QuestionTestContext(1, Difficulty.EASY));
 
     @Test
-    public void getQuestions_ShouldReturnThreeQuestions_WhenInvoked(){
-        ArrayList<Question> questions = (ArrayList<Question>) repository.getAll(1, Difficulty.EASY);
+    public void getQuestions_ShouldReturnThreeQuestions_WhenInvoked() throws SQLException, ClassNotFoundException {
+        ArrayList<Question> questions = (ArrayList<Question>) repository.getQuestions(1, Difficulty.EASY);
 
         Assert.assertEquals(3, questions.size());
     }

@@ -12,8 +12,8 @@ public class QuestionTestContext implements IQuestionContext {
 
     ArrayList<Question> questions;
 
-    public QuestionTestContext() {
-        this.questions = new ArrayList<>();
+    public QuestionTestContext(int categoryId, Difficulty difficulty) {
+        this.questions = (ArrayList<Question>) getQuestions(categoryId, difficulty);
     }
 
     @Override
@@ -52,19 +52,18 @@ public class QuestionTestContext implements IQuestionContext {
     }
 
     @Override
-    public boolean checkAnswer(int questionId, String answer) {
-        Question question;
+    public Answer getAnswer(int questionId) {
 
-        for (Question questionInList: this.questions) {
-            if (questionInList.getId() == questionId)    {
-                for (Answer answerInList: questionInList.getAnswers()){
+        for (Question question: questions){
+            if (question.getId() == questionId){
+                for (Answer answerInList: question.getAnswers()){
                     if (answerInList.isCorrect()){
-                        return answer.equals(answerInList.getAnswer());
+                        return answerInList;
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
 }
 
