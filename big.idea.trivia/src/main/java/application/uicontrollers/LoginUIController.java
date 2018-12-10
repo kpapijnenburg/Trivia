@@ -1,7 +1,7 @@
 package application.uicontrollers;
 
 import application.Application;
-import application.UserService;
+import application.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

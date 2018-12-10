@@ -1,4 +1,4 @@
-package application;
+package application.services;
 
 import com.google.gson.*;
 import question.model.Category;

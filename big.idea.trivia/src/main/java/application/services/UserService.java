@@ -1,4 +1,4 @@
-package application;
+package application.services;
 
 import api.exceptions.NonUniqueUsernameException;
 import api.interfaces.IUserService;

@@ -1,7 +1,7 @@
 package application.uicontrollers;
 
 import application.Application;
-import application.CategoryService;
+import application.services.CategoryService;
 import game.model.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,8 +1,8 @@
 package application.uicontrollers;
 
 import application.Application;
-import application.GameService;
-import application.QuestionService;
+import application.services.GameService;
+import application.services.QuestionService;
 import game.model.Game;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -18,8 +18,6 @@ import java.util.Collections;
 import java.util.Optional;
 
 public class GameUIController {
-    //todo OpentriviaService interface maken en implementeren.
-
     public Label lb_score;
     public Label lb_strikes;
     public Button btn_quit;
@@ -117,7 +115,7 @@ public class GameUIController {
         resetButtons();
         Collections.shuffle(buttons);
 
-        for (int i = 0; i < currentQuestion.getAnswers().size(); i++){
+        for (int i = 0; i < currentQuestion.getAnswers().size(); i++) {
             buttons.get(i).setText(currentQuestion.getAnswers().get(i).getAnswer());
         }
 
@@ -145,21 +143,19 @@ public class GameUIController {
 
         if (result) {
             awardPoints();
-            JOptionPane.showMessageDialog(null, "Correct answer!");
-
         } else {
             awardStrike();
-            //todo juiste antwoord weergegeven in geval van foutef antwoord.
-            JOptionPane.showMessageDialog(null, "False answer! Correct answer was: ");
         }
 
-       updateLabels();
+        updateLabels();
         getQuestion();
-
     }
 
     private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
+
+        JOptionPane.showMessageDialog(null, "False answer!");
+
         if (game.getPlayers().get(0).getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
 
@@ -188,6 +184,9 @@ public class GameUIController {
         }
 
         game.getPlayers().get(0).setScore(points);
+
+        JOptionPane.showMessageDialog(null, "Correct answer!");
+
     }
 }
 

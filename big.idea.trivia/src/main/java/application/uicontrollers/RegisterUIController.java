@@ -2,7 +2,7 @@ package application.uicontrollers;
 
 import api.exceptions.NonUniqueUsernameException;
 import application.Application;
-import application.UserService;
+import application.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;

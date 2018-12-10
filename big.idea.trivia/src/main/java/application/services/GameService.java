@@ -1,4 +1,4 @@
-package application;
+package application.services;
 
 import api.interfaces.IGameService;
 import game.model.Game;
