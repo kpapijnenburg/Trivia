@@ -1,6 +1,5 @@
 package application.uicontrollers;
 
-import api.opentrivia.OpenTriviaDBService;
 import application.Application;
 import application.GameService;
 import game.model.Game;
@@ -10,7 +9,6 @@ import javafx.stage.Stage;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +28,6 @@ public class GameUIController {
 
     private Game game;
     private Application application;
-    private OpenTriviaDBService openTriviaDBService;
     private GameService gameService;
     private ArrayList<Button> buttons;
     private ArrayList<Question> questions;
@@ -39,7 +36,6 @@ public class GameUIController {
     public GameUIController() {
         this.application = Application.getInstance();
         this.game = Game.getInstance();
-        openTriviaDBService = new OpenTriviaDBService();
         this.gameService = new GameService();
         buttons = new ArrayList<>();
         questions = new ArrayList<>();
@@ -47,11 +43,8 @@ public class GameUIController {
 
     public void initialize() throws IOException {
         if (game.getQuestions().size() == 0) {
-            try {
-                questions = openTriviaDBService.getQuestions(game);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //todo opentriviaDbService verwijderen en vervangen met question service.
+//                questions = openTriviaDBService.getQuestions(game);
         }
 
         buttons.add(btn_answerA);
@@ -119,15 +112,16 @@ public class GameUIController {
         resetButtons();
         Collections.shuffle(buttons);
 
-        for (int i = 0; i < currentQuestion.getAnswers().getFalseAnswers().size(); i++) {
-            buttons.get(i).setText(currentQuestion.getAnswers().getFalseAnswers().get(i));
-        }
-
-        for (Button button : buttons) {
-            if (button.getText().equals("")) {
-                button.setText(currentQuestion.getAnswers().getCorrectAnswer());
-            }
-        }
+        //todo question repository gebruiken ipv opentriviadb
+//        for (int i = 0; i < currentQuestion.getAnswers().getFalseAnswers().size(); i++) {
+//            buttons.get(i).setText(currentQuestion.getAnswers().getFalseAnswers().get(i));
+//        }
+//
+//        for (Button button : buttons) {
+//            if (button.getText().equals("")) {
+//                button.setText(currentQuestion.getAnswers().getCorrectAnswer());
+//            }
+//        }
 
     }
 
@@ -151,17 +145,19 @@ public class GameUIController {
 
 
     private void checkAnswer(String answer) throws IOException {
-        if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)) {
-            awardPoints();
-            JOptionPane.showMessageDialog(null, "Correct answer!");
+        //todo questionrepository gebruiken ipv opentriviadb
 
-        } else {
-            awardStrike();
-            JOptionPane.showMessageDialog(null, "False answer!");
-        }
-
-        updateLabels();
-        getQuestion();
+//        if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)) {
+//            awardPoints();
+//            JOptionPane.showMessageDialog(null, "Correct answer!");
+//
+//        } else {
+//            awardStrike();
+//            JOptionPane.showMessageDialog(null, "False answer! Correct answer was: " + currentQuestion.getAnswers().getCorrectAnswer());
+//        }
+//
+//        updateLabels();
+//        getQuestion();
 
     }
 

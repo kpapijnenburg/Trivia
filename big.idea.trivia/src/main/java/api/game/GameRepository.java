@@ -8,6 +8,6 @@ public class GameRepository {
     }
 
     public void saveSinglePlayerGame(int score, int userId) {
-        context.saveSingePlayerGame(score, userId);
+        context.saveSinglePlayerGame(score, userId);
     }
 }

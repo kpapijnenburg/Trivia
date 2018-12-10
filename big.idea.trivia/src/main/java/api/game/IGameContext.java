@@ -1,5 +1,5 @@
 package api.game;
 
 public interface IGameContext {
-    void saveSingePlayerGame(int score, int userId);
+    void saveSinglePlayerGame(int score, int userId);
 }

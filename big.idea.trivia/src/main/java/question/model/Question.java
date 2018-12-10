@@ -1,37 +1,45 @@
 package question.model;
 
-import question.model.Enums.Type;
+import java.util.ArrayList;
 
 public class Question {
-
+    private int id;
+    private int categoryId;
+    private String type;
+    private String difficulty;
     private String question;
-    private Category category;
-    private Type type;
-    private Answers answers;
+    private ArrayList<Answer> answers;
 
-    //region Getters/Setter
-    public Category getCategory() {
-        return category;
+    public int getId() {
+        return id;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Type getType() {
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Answers getAnswers() {
-        return answers;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setAnswers(Answers answers) {
-        this.answers = answers;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
     public String getQuestion() {
@@ -42,20 +50,31 @@ public class Question {
         this.question = question;
     }
 
-    //endregion
+    public ArrayList<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(ArrayList<Answer> answers) {
+        this.answers = answers;
+    }
 
     public Question() {
 
     }
 
-    public Question(String question, Category category, Type type, Answers answers) {
-        this.question = question;
-        this.category = category;
+    public Question(int categoryId, String type, String difficulty, String question, ArrayList<Answer> answers) {
+        this.categoryId = categoryId;
         this.type = type;
+        this.difficulty = difficulty;
+        this.question = question;
         this.answers = answers;
     }
 
-    public Question(String question, Answers answers) {
+    public Question(int id, int categoryId, String type, String difficulty, String question, ArrayList<Answer> answers) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.type = type;
+        this.difficulty = difficulty;
         this.question = question;
         this.answers = answers;
     }

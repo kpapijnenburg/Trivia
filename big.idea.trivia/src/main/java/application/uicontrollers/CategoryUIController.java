@@ -1,9 +1,7 @@
 package application.uicontrollers;
 
-import api.opentrivia.OpenTriviaDBService;
 import application.Application;
 import game.model.Game;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -13,7 +11,6 @@ import javafx.stage.Stage;
 import question.model.Category;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class CategoryUIController {
     private Application application;
@@ -21,28 +18,29 @@ public class CategoryUIController {
     public Button btn_choose;
     public ComboBox<String> cmb_category;
 
-    private OpenTriviaDBService openTriviaDBService;
     private Game game;
     private ObservableList<Category> categories;
 
     public CategoryUIController() {
-        openTriviaDBService = new OpenTriviaDBService();
+
     }
 
     public void initialize() throws IOException {
         this.application = Application.getInstance();
-        game = Game.getInstance();
-        categories = FXCollections.observableArrayList(openTriviaDBService.getCategories());
 
-        ArrayList<String> names = new ArrayList<>();
-
-        for (Category category: categories){
-            names.add(category.getName());
-        }
-
-        ObservableList<String> observableList = FXCollections.observableList(names);
-
-        cmb_category.setItems(observableList);
+        //todo categroy repository maken.
+//        game = Game.getInstance();
+//        categories = FXCollections.observableArrayList(openTriviaDBService.getCategories());
+//
+//        ArrayList<String> names = new ArrayList<>();
+//
+//        for (Category category: categories){
+//            names.add(category.getName());
+//        }
+//
+//        ObservableList<String> observableList = FXCollections.observableList(names);
+//
+//        cmb_category.setItems(observableList);
     }
 
 

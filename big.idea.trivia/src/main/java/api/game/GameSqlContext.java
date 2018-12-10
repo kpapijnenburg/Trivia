@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class GameSqlContext implements IGameContext {
     @Override
-    public void saveSingePlayerGame(int score, int userId) {
+    public void saveSinglePlayerGame(int score, int userId) {
         try {
             //Set up connection
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
