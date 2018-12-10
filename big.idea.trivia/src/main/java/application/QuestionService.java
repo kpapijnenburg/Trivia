@@ -39,4 +39,12 @@ public class QuestionService {
         return questions;
     }
 
+    public boolean checkAnswer(int questionId, String answer) throws IOException {
+        URL url = new URL(baseUrl + "/check?questionId=" + questionId + "&answer=" + answer);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        return jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), boolean.class);
+    }
+
 }

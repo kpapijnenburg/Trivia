@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -140,19 +141,20 @@ public class GameUIController {
 
 
     private void checkAnswer(String answer) throws IOException {
-        //todo questionrepository gebruiken ipv opentriviadb
+        boolean result = questionService.checkAnswer(currentQuestion.getId(), answer);
 
-//        if (currentQuestion.getAnswers().getCorrectAnswer().equals(answer)) {
-//            awardPoints();
-//            JOptionPane.showMessageDialog(null, "Correct answer!");
-//
-//        } else {
-//            awardStrike();
-//            JOptionPane.showMessageDialog(null, "False answer! Correct answer was: " + currentQuestion.getAnswers().getCorrectAnswer());
-//        }
-//
-//        updateLabels();
-//        getQuestion();
+        if (result) {
+            awardPoints();
+            JOptionPane.showMessageDialog(null, "Correct answer!");
+
+        } else {
+            awardStrike();
+            //todo juiste antwoord weergegeven in geval van foutef antwoord.
+            JOptionPane.showMessageDialog(null, "False answer! Correct answer was: ");
+        }
+
+       updateLabels();
+        getQuestion();
 
     }
 

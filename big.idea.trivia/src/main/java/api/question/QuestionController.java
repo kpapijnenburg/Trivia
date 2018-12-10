@@ -19,12 +19,10 @@ public class QuestionController {
         return repository.getQuestions(categoryId, difficulty);
     }
 
+    @RequestMapping(value = "question/check", method = RequestMethod.GET)
+    public boolean checkAnswer(@RequestParam(value = "questionId") int questionId, @RequestParam(value = "answer") String answer){
+        return repository.checkAnswer(questionId, answer);
+    }
 }
 
-//    private UserRepository repository = new UserRepository(new UserSqlContext());
-//
-//    @RequestMapping(value = "/user" , method = RequestMethod.GET)
-//    public User login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password) throws IncorrectCredentialsException {
-//        return repository.login(name, password);
-//    }
 
