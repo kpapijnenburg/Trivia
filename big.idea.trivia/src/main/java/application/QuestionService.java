@@ -2,6 +2,8 @@ package application;
 
 import com.google.gson.*;
 import game.model.Game;
+import org.apache.commons.lang.StringEscapeUtils;
+import question.model.Answer;
 import question.model.Question;
 
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +39,21 @@ public class QuestionService {
             questions.add(jsonConverter.fromJson(element, Question.class));
         }
 
+        for (Question question: questions){
+            for (Answer answer: question.getAnswers()){
+                StringEscapeUtils.unescapeHtml(answer.getAnswer());
+            }
+        }
+
         return questions;
     }
 
     public boolean checkAnswer(int questionId, String answer) throws IOException {
-        URL url = new URL(baseUrl + "/check?questionId=" + questionId + "&answer=" + answer);
+        String paramValue = "/check?questionId=" + questionId + "&answer=" + URLEncoder.encode(answer, "UTF-8");
+        String urlString = baseUrl + paramValue;
+
+        URL url = new URL(urlString);
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 

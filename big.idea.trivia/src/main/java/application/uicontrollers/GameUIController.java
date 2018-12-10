@@ -161,6 +161,8 @@ public class GameUIController {
     private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
         if (game.getPlayers().get(0).getStrikes() >= 3) {
+            JOptionPane.showMessageDialog(null, "Game over!");
+
             gameService.saveSinglePlayer(game);
 
             application.openStage("homepage_ui.fxml");
