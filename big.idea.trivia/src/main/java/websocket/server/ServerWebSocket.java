@@ -23,26 +23,32 @@ public class ServerWebSocket {
 
     @OnOpen
     public void onConnect(Session session) {
+        System.out.println("new connection: sessionID: " + session.getId());
         sessions.add(session);
+        System.out.println("Total number of sessions: " + sessions.size());
     }
 
     @OnMessage
     public void onText(String message, Session session) {
+        System.out.println("[WebSocket Session ID] : " + session.getId() + " [Received] : " + message);
         handleMessageFromClient(message, session);
     }
 
     @OnClose
     public void onClose(CloseReason reason, Session session){
+        System.out.println("[WebSocket Session ID] : " + session.getId() + " [Socket Closed]: " + reason);
         sessions.remove(session);
     }
 
     @OnError
     public void onError(Throwable cause, Session session){
+        System.out.println("[WebSocket Session ID] : " + session.getId() + "[ERROR]: ");
         cause.printStackTrace(System.err);
     }
 
     // Incoming Message handling from client
     private void handleMessageFromClient(String s, Session session) {
+
         Gson gson = new Gson();
         Message message;
 
