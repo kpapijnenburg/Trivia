@@ -58,6 +58,7 @@ public class UserService implements IUserService {
     }
 
     public User login(String name, String password) throws IOException {
+        //todo naar post veranderen
         URL url = buildUrl(name, password);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");

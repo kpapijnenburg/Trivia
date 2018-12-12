@@ -9,7 +9,6 @@ import question.model.Question;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class QuestionService {
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 
-    public QuestionService() throws MalformedURLException {
+    public QuestionService() {
 
     }
 
@@ -49,6 +48,7 @@ public class QuestionService {
     }
 
     public boolean checkAnswer(int questionId, String answer) throws IOException {
+        //todo veraderen naar post.
         String paramValue = "/check?questionId=" + questionId + "&answer=" + URLEncoder.encode(answer, "UTF-8");
         String urlString = baseUrl + paramValue;
 

@@ -7,6 +7,7 @@ import game.model.Game;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import question.model.Answer;
 import question.model.Enums.Difficulty;
 import question.model.Question;
 
@@ -154,7 +155,9 @@ public class GameUIController {
     private void awardStrike() throws IOException {
         game.getPlayers().get(0).setStrikes(1);
 
-        JOptionPane.showMessageDialog(null, "False answer!");
+        Answer correct = currentQuestion.getAnswers().stream().filter(Answer::isCorrect).findFirst().get();
+
+        JOptionPane.showMessageDialog(null, "False answer! The correct answer was: " + correct.getAnswer());
 
         if (game.getPlayers().get(0).getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");

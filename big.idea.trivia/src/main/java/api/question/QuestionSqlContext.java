@@ -34,7 +34,7 @@ public class QuestionSqlContext implements IQuestionContext {
                         result.getString(3),
                         result.getString(4),
                         result.getString(5),
-                        null
+                        connectAnswers(result.getInt(1))
 
                 ));
             }
@@ -48,50 +48,48 @@ public class QuestionSqlContext implements IQuestionContext {
             e.printStackTrace();
         }
 
-        connectAnswers(questions);
+//        connectAnswers(questions);
 
         return questions;
     }
 
-    private void connectAnswers(ArrayList<Question> questions) throws ClassNotFoundException, SQLException {
+    private ArrayList<Answer> connectAnswers(int id) throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection connection = DriverManager.getConnection("jdbc:sqlserver://mssql.fhict.local;database=dbi388613", "dbi388613", "wachtwoord");
 
-        for (Question question : questions) {
-            ArrayList<Answer> answers = new ArrayList<>();
+        ArrayList<Answer> answers = new ArrayList<>();
 
-            try {
-                PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM Trivia.Answer WHERE Trivia.Answer.Questionid = ?"
-                );
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM Trivia.Answer WHERE Trivia.Answer.Questionid = ?"
+            );
 
-                statement.setInt(1, question.getId());
+            statement.setInt(1, id);
 
-                ResultSet result = statement.executeQuery();
+            ResultSet result = statement.executeQuery();
 
-                // Add items to list
-                while (result.next()) {
-                    answers.add(new Answer(
-                            result.getInt(1),
-                            result.getInt(2),
-                            result.getString(3),
-                            result.getBoolean(4)
-                    ));
-                }
-
-                Collections.shuffle(answers);
-                question.setAnswers(answers);
-
-                //Close connections
-                result.close();
-                statement.close();
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            // Add items to list
+            while (result.next()) {
+                answers.add(new Answer(
+                        result.getInt(1),
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getBoolean("isCorrect")
+                ));
             }
+
+            Collections.shuffle(answers);
+
+            //Close connections
+            result.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        connection.close();
+
+        return answers;
     }
 
 
