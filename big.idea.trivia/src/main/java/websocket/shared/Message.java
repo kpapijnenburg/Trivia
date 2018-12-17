@@ -6,6 +6,12 @@ public class Message {
     private String content;
 
     public Message(Operation operation, String channel, String content) {
+        this.operation = operation;
+        this.channel = channel;
+        this.content = content;
+    }
+
+    public Message(String channel, String content) {
         this.channel = channel;
         this.content = content;
     }
