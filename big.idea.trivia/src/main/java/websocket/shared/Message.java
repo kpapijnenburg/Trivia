@@ -2,11 +2,11 @@ package websocket.shared;
 
 public class Message {
     private Operation operation;
-    private String property;
+    private String channel;
     private String content;
 
-    public Message(Operation operation, String property, String content) {
-        this.property = property;
+    public Message(Operation operation, String channel, String content) {
+        this.channel = channel;
         this.content = content;
     }
 
@@ -21,12 +21,12 @@ public class Message {
         this.operation = operation;
     }
 
-    public String getProperty() {
-        return property;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setProperty(String property) {
-        this.property = property;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
     public String getContent() {

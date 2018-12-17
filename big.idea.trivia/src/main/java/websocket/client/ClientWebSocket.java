@@ -10,11 +10,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@ClientEndpoint
 public class ClientWebSocket extends Communicator {
     // using a singleton to ensure there is only one instance of this client.
     private static ClientWebSocket instance = null;
 
-    private final String uri = "localhost:9000/game/";
+    private final String uri = "ws://localhost:9000/game/";
     private Session session;
     private String message;
 
@@ -27,7 +28,7 @@ public class ClientWebSocket extends Communicator {
         gson = new Gson();
     }
 
-    private static ClientWebSocket getInstance(){
+    public static ClientWebSocket getInstance(){
         if (instance == null){
             instance = new ClientWebSocket();
         }
@@ -75,38 +76,38 @@ public class ClientWebSocket extends Communicator {
     }
 
     @Override
-    public void register(String property) {
+    public void register(String channel) {
         Message message = new Message();
         message.setOperation(Operation.REGISTER);
-        message.setProperty(property);
+        message.setChannel(channel);
 
         sendToServer(message);
     }
 
 
     @Override
-    public void unregister(String property) {
+    public void unregister(String channel) {
         Message message = new Message();
         message.setOperation(Operation.UNREGISTER);
-        message.setProperty(property);
+        message.setChannel(channel);
 
         sendToServer(message);
     }
 
     @Override
-    public void subscribe(String property) {
+    public void subscribe(String channel) {
         Message message = new Message();
         message.setOperation(Operation.SUBSCRIBE);
-        message.setProperty(property);
+        message.setChannel(channel);
 
         sendToServer(message);
     }
 
     @Override
-    public void unsubscribe(String property) {
+    public void unsubscribe(String channel) {
         Message message = new Message();
         message.setOperation(Operation.UNSUBSCRIBE);
-        message.setProperty(property);
+        message.setChannel(channel);
 
         sendToServer(message);
     }
@@ -115,7 +116,7 @@ public class ClientWebSocket extends Communicator {
     public void update(Message message) {
         Message wsMessage = new Message();
         wsMessage.setOperation(Operation.UPDATE);
-        wsMessage.setProperty(message.getProperty());
+        wsMessage.setChannel(message.getChannel());
         wsMessage.setContent(message.getContent());
 
         sendToServer(wsMessage);
@@ -165,9 +166,9 @@ public class ClientWebSocket extends Communicator {
             return;
         }
 
-        // Obtain property from message
-        String property = wsMessage.getProperty();
-        if (property == null || "".equals(property)){
+        // Obtain channel from message
+        String channel = wsMessage.getChannel();
+        if (channel == null || "".equals(channel)){
             return;
         }
 
@@ -179,7 +180,7 @@ public class ClientWebSocket extends Communicator {
 
         // Create object to be send to observers.
         Message observerMessage = new Message();
-        observerMessage.setProperty(property);
+        observerMessage.setChannel(channel);
         observerMessage.setContent(content);
 
         // Notify observers

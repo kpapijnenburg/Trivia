@@ -64,7 +64,11 @@ public class HomepageUIController {
         stageToClose.close();
     }
 
-    public void btnMultiplayerGameClicked(ActionEvent actionEvent) {
+    public void btnMultiplayerGameClicked(ActionEvent actionEvent) throws IOException {
+        application.openStage("lobby_ui.fxml");
+
+        Stage stageToClose = (Stage) btn_singleplayer.getScene().getWindow();
+        stageToClose.close();
     }
 
     public void btnLeaderBoardClicked(ActionEvent actionEvent) {

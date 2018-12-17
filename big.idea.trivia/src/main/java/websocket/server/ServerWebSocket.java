@@ -18,8 +18,8 @@ public class ServerWebSocket {
     // List of all sessions
     private static final List<Session> sessions = new ArrayList<>();
 
-    // Map of each list of sessions that are subscribed to that property
-    private static final Map<String, List<Session>> propertySessions = new HashMap<>();
+    // Map of each list of sessions that are subscribed to that channel
+    private static final Map<String, List<Session>> channels = new HashMap<>();
 
     @OnOpen
     public void onConnect(Session session) {
@@ -64,33 +64,33 @@ public class ServerWebSocket {
         operation = message.getOperation();
 
         // process based on which operations needs to be handled
-        String property = message.getProperty();
-        if (null != operation && null != property && !"".equals(property)) {
+        String channel = message.getChannel();
+        if (null != operation && null != channel && !"".equals(channel)) {
             switch (operation) {
                 case REGISTER:
-                    // Register property if not registered yet
-                    if (propertySessions.get(property) == null) {
-                        propertySessions.put(property, new ArrayList<>());
+                    // Register channel if not registered yet
+                    if (channels.get(channel) == null) {
+                        channels.put(channel, new ArrayList<>());
                     }
                     break;
                 case UNREGISTER:
                     // breaking immediately because other clients may be subscribed
                     break;
                 case SUBSCRIBE:
-                    //subscribe property if this has not been done.
-                    if (propertySessions.get(property) == null) {
-                        propertySessions.get(property).add(session);
+                    //subscribe channel if this has not been done.
+                    if (channels.get(channel) == null) {
+                        channels.get(channel).add(session);
                     }
                     break;
                 case UNSUBSCRIBE:
-                    // Unsubscribe if the property has been subscribed
-                    if (propertySessions.get(property) != null) {
-                        propertySessions.get(property).remove(session);
+                    // Unsubscribe if the channel has been subscribed
+                    if (channels.get(channel) != null) {
+                        channels.get(channel).remove(session);
                     }
                 case UPDATE:
-                    // Send message to all clients subscribed to this property
-                    if (propertySessions.get(property) != null) {
-                        for (Session sess : propertySessions.get(property)) {
+                    // Send message to all clients subscribed to this channel
+                    if (channels.get(channel) != null) {
+                        for (Session sess : channels.get(channel)) {
                             // Use async communication
                             sess.getAsyncRemote().sendText(s);
                         }
