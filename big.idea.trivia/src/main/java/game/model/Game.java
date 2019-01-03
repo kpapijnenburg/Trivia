@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Game {
 
     private int id;
-    private ArrayList<Player> players;
     private Difficulty difficulty;
     private ArrayList<Question> questions;
     private Category category;
@@ -22,14 +21,6 @@ public class Game {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
     }
 
     public Difficulty getDifficulty() {
@@ -60,27 +51,16 @@ public class Game {
 
     private static Game instance = null;
 
-    public Game() {
-        players = new ArrayList<>();
+    Game() {
         questions = new ArrayList<>();
     }
 
-    public Game(int id, Difficulty difficulty, ArrayList<Question> questions) {
+    Game(int id, Difficulty difficulty, ArrayList<Question> questions) {
         this.id = id;
-        this.players = new ArrayList<>();
         this.difficulty = difficulty;
         this.questions = questions;
     }
 
-    public static Game getInstance() {
-        if (instance == null) {
-            instance = new Game();
-        }
 
-        return instance;
-    }
 
-    public void addPlayer(Player player){
-        this.players.add(player);
-    }
 }

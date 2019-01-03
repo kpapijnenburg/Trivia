@@ -3,7 +3,7 @@ package application.uicontrollers;
 import application.Application;
 import application.services.GameService;
 import application.services.QuestionService;
-import game.model.Game;
+import game.model.SinglePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -12,7 +12,6 @@ import question.model.Question;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class GameUIController {
     public Button btn_answerC;
     public Button btn_answerD;
 
-    private Game game;
+    private SinglePlayerGame game;
     private Application application;
     private GameService gameService;
     private QuestionService questionService;
@@ -36,9 +35,9 @@ public class GameUIController {
     private ArrayList<Question> questions;
     private Question currentQuestion;
 
-    public GameUIController() throws MalformedURLException {
+    public GameUIController() {
         this.application = Application.getInstance();
-        this.game = Game.getInstance();
+        this.game = SinglePlayerGame.getInstance();
         this.gameService = new GameService();
         this.questionService = new QuestionService();
 
@@ -133,8 +132,8 @@ public class GameUIController {
 
 
     private void updateLabels() {
-        lb_strikes.setText("" + game.getPlayers().get(0).getStrikes());
-        lb_score.setText("" + game.getPlayers().get(0).getScore());
+        lb_strikes.setText("" + game.getPlayer().getStrikes());
+        lb_score.setText("" + game.getPlayer().getScore());
     }
 
 
@@ -152,11 +151,11 @@ public class GameUIController {
     }
 
     private void awardStrike() throws IOException {
-        game.getPlayers().get(0).setStrikes(1);
+        game.getPlayer().setStrikes(1);
 
         JOptionPane.showMessageDialog(null, "False answer!");
 
-        if (game.getPlayers().get(0).getStrikes() >= 3) {
+        if (game.getPlayer().getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
 
             gameService.saveSinglePlayer(game);
@@ -183,7 +182,7 @@ public class GameUIController {
             points = 3;
         }
 
-        game.getPlayers().get(0).setScore(points);
+        game.getPlayer().setScore(points);
 
         JOptionPane.showMessageDialog(null, "Correct answer!");
 

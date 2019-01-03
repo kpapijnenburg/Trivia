@@ -1,8 +1,8 @@
 package application.uicontrollers;
 
 import application.Application;
-import game.model.Game;
 import game.model.Player;
+import game.model.SinglePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,7 +18,7 @@ public class HomepageUIController {
 
     public Button btn_singleplayer;
 
-    private Game game;
+    private SinglePlayerGame singlePlayerGame;
     private Application application;
 
     public HomepageUIController() {
@@ -41,24 +41,24 @@ public class HomepageUIController {
 
         alert.getButtonTypes().setAll(easy, medium, hard);
 
-        game = Game.getInstance();
+        singlePlayerGame = SinglePlayerGame.getInstance();
 
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == easy) {
-            game.setDifficulty(Difficulty.EASY);
+            singlePlayerGame.setDifficulty(Difficulty.EASY);
         }
         else if (result.get() == medium) {
-            game.setDifficulty(Difficulty.MEDIUM);
+            singlePlayerGame.setDifficulty(Difficulty.MEDIUM);
         }
         else if (result.get() == hard) {
-            game.setDifficulty(Difficulty.HARD);
+            singlePlayerGame.setDifficulty(Difficulty.HARD);
         }
 
         application.openStage("category_ui.fxml");
 
         Player player = new Player(Application.currentUser.getId(),0,0);
-        game.addPlayer(player);
+        singlePlayerGame.setPlayer(player);
 
         Stage stageToClose = (Stage) btn_singleplayer.getScene().getWindow();
         stageToClose.close();

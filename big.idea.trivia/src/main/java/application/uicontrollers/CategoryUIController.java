@@ -2,7 +2,7 @@ package application.uicontrollers;
 
 import application.Application;
 import application.services.CategoryService;
-import game.model.Game;
+import game.model.SinglePlayerGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +23,7 @@ public class CategoryUIController {
     public Button btn_choose;
     public ComboBox<String> cmb_category;
 
-    private Game game;
+    private SinglePlayerGame singlePlayerGame;
     private ObservableList<Category> categories;
 
     public CategoryUIController() throws MalformedURLException {
@@ -33,7 +33,7 @@ public class CategoryUIController {
     public void initialize() throws IOException {
         this.application = Application.getInstance();
 
-        game = Game.getInstance();
+        singlePlayerGame = SinglePlayerGame.getInstance();
         categories = FXCollections.observableArrayList(categoryService.getAll());
 
         ArrayList<String> names = new ArrayList<>();
@@ -58,7 +58,7 @@ public class CategoryUIController {
             }
         }
 
-        game.setCategory(category);
+        singlePlayerGame.setCategory(category);
 
         if (category == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a category.");

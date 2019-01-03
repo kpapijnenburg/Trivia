@@ -1,7 +1,8 @@
 package application.services;
 
 import api.interfaces.IGameService;
-import game.model.Game;
+import game.model.MultiPlayerGame;
+import game.model.SinglePlayerGame;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,13 +19,13 @@ public class GameService implements IGameService {
     private String baseUrl =  "http://localhost:8090/game";
 
     @Override
-    public void saveSinglePlayer(Game game) throws IOException {
+    public void saveSinglePlayer(SinglePlayerGame game) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(baseUrl + "/savesingleplayer?");
 
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("score", Integer.toString(game.getPlayers().get(0).getScore())));
-        params.add(new BasicNameValuePair("userId", Integer.toString(game.getPlayers().get(0).getId())));
+        params.add(new BasicNameValuePair("score", Integer.toString(game.getPlayer().getScore())));
+        params.add(new BasicNameValuePair("userId", Integer.toString(game.getPlayer().getId())));
         httpPost.setEntity(new UrlEncodedFormEntity(params));
 
         CloseableHttpResponse response = client.execute(httpPost);
@@ -35,7 +36,7 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public void saveMultiPlayer(Game game) {
+    public void saveMultiPlayer(MultiPlayerGame game) {
 
     }
 }
