@@ -1,6 +1,7 @@
 package websocket.client;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonSyntaxException;
 import websocket.shared.Message;
 import websocket.shared.Operation;
@@ -54,29 +55,29 @@ public class ClientWebSocket extends Communicator {
     }
 
     @OnOpen
-    public void onConnect(Session session){
+    public void onClientConnect(Session session){
         this.session = session;
     }
 
     @OnMessage
-    public void onText(String message){
+    public void onClientText(String message, Session session){
         this.message = message;
         processMessage(message);
     }
 
     @OnError
-    public void onError(Throwable cause){
+    public void onClientError(Throwable cause){
         System.out.println("Connection error: " + cause.getMessage());
     }
 
     @OnClose
-    public void onClose(CloseReason reason){
+    public void onClientClose(CloseReason reason){
         System.out.println("Client closed with reason: " + reason);
         session = null;
     }
 
     @Override
-    public void register(String channel) {
+    public void register(String channel) throws IOException {
         Message message = new Message();
         message.setOperation(Operation.REGISTER);
         message.setChannel(channel);
@@ -86,7 +87,7 @@ public class ClientWebSocket extends Communicator {
 
 
     @Override
-    public void unregister(String channel) {
+    public void unregister(String channel) throws IOException {
         Message message = new Message();
         message.setOperation(Operation.UNREGISTER);
         message.setChannel(channel);
@@ -95,7 +96,7 @@ public class ClientWebSocket extends Communicator {
     }
 
     @Override
-    public void subscribe(String channel) {
+    public void subscribe(String channel) throws IOException {
         Message message = new Message();
         message.setOperation(Operation.SUBSCRIBE);
         message.setChannel(channel);
@@ -104,7 +105,7 @@ public class ClientWebSocket extends Communicator {
     }
 
     @Override
-    public void unsubscribe(String channel) {
+    public void unsubscribe(String channel) throws IOException {
         Message message = new Message();
         message.setOperation(Operation.UNSUBSCRIBE);
         message.setChannel(channel);
@@ -113,7 +114,7 @@ public class ClientWebSocket extends Communicator {
     }
 
     @Override
-    public void update(Message message) {
+    public void update(Message message) throws IOException {
         Message wsMessage = new Message();
         wsMessage.setOperation(Operation.UPDATE);
         wsMessage.setChannel(message.getChannel());
@@ -124,17 +125,17 @@ public class ClientWebSocket extends Communicator {
 
     @Override
     public void connect(String channel) throws IOException {
-       Message wsMessage = new Message();
-       wsMessage.setChannel(channel);
-       wsMessage.setOperation(Operation.CONNECTED);
+        Message wsMessage = new Message();
+        wsMessage.setChannel(channel);
+        wsMessage.setOperation(Operation.CONNECTED);
 
-       sendToServer(wsMessage);
+        sendToServer(wsMessage);
     }
 
-    private void sendToServer(Message message) {
+    private void sendToServer(Message message) throws IOException {
         String s = gson.toJson(message);
 
-        session.getAsyncRemote().sendText(s);
+        session.getBasicRemote().sendText(s);
     }
 
     // Start a new websocket client

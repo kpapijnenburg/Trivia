@@ -19,6 +19,7 @@ import user.model.User;
 import websocket.client.ClientWebSocket;
 import websocket.client.Communicator;
 import websocket.shared.Message;
+import websocket.shared.Operation;
 
 import java.io.IOException;
 import java.util.*;
@@ -27,12 +28,12 @@ public class LobbyUIController implements Observer {
 
     public Button btn_back;
     public Button btn_start;
-    public ListView lst_games;
+    public ListView<MultiPlayerGame> lst_games;
     private Application application;
 
     private Communicator communicator = null;
 
-    private  List<MultiPlayerGame> games = new ArrayList<>();
+    private List<MultiPlayerGame> games = new ArrayList<>();
 
     public LobbyUIController() {
         this.application = Application.getInstance();
@@ -72,8 +73,8 @@ public class LobbyUIController implements Observer {
     }
 
 
-
     public void btnCreateClicked(ActionEvent event) {
+        //todo zorgen dat een speler maar een game kan beginnen.
         MultiPlayerGame game = new MultiPlayerGame();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Choose a difficulty for the game.");
 
@@ -87,21 +88,17 @@ public class LobbyUIController implements Observer {
 
         if (result.get() == easy) {
             game.setDifficulty(Difficulty.EASY);
-        }
-        else if (result.get() == medium) {
+        } else if (result.get() == medium) {
             game.setDifficulty(Difficulty.MEDIUM);
-        }
-        else if (result.get() == hard) {
+        } else if (result.get() == hard) {
             game.setDifficulty(Difficulty.HARD);
         }
 
         User user = Application.currentUser;
-        Player player = new Player(user.getName(), 0,0);
+        Player player = new Player(user.getName(), 0, 0);
         game.setPlayerA(player);
 
         broadcast(game);
-
-        this.games.add(game);
 
     }
 
@@ -116,7 +113,7 @@ public class LobbyUIController implements Observer {
 
             communicator.register(game.getPlayerA().getName() + "'s game");
             communicator.subscribe(game.getPlayerA().getName() + "'s game");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -124,27 +121,42 @@ public class LobbyUIController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
         Gson gson = new Gson();
 
         Message message = (Message) arg;
-        String channel = message.getChannel();
         String content = message.getContent();
+        Operation operation = message.getOperation();
 
-        if (content.equals("[]")){
-            System.out.println("Empty array skipped.");
-        } else {
-            games.clear();
+        // Check if either the operation is connected or update.
+        // When connected a list of games should be processed.
+        // When updating a single game object should be added.
 
-            JsonArray array = gson.fromJson(content, JsonArray.class);
+        switch (operation) {
+            case UPDATE:
+                MultiPlayerGame updateGame = gson.fromJson(content, MultiPlayerGame.class);
+                games.add(updateGame);
+                System.out.println("added update game");
+                break;
+            case CONNECTED:
+                if (content.equals("[]")) {
+                    System.out.println("Empty array skipped.");
+                } else {
+                    games.clear();
 
-            for (JsonElement jsonGame: array){
-                MultiPlayerGame game = gson.fromJson(jsonGame, MultiPlayerGame.class);
-                games.add(game);
-            }
+                    System.out.println("Cleared list");
 
-            ObservableList<MultiPlayerGame> observableList = FXCollections.observableList(games);
-            lst_games.setItems(observableList);
+                    JsonArray array = gson.fromJson(content, JsonArray.class);
+
+                    for (JsonElement jsonGame : array) {
+                        MultiPlayerGame connectedGame = gson.fromJson(jsonGame, MultiPlayerGame.class);
+                        games.add(connectedGame);
+                        System.out.println("Added connected game");
+                    }
+                }
         }
+
+        // Finsih with updating the list with the new items.
+        ObservableList<MultiPlayerGame> observableList = FXCollections.observableList(games);
+        lst_games.setItems(observableList);
     }
 }

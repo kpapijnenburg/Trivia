@@ -8,6 +8,7 @@ import websocket.shared.Operation;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ServerWebSocket {
     }
 
     @OnMessage
-    public void onText(String message, Session session) {
+    public void onText(String message, Session session) throws IOException {
         System.out.println("[WebSocket Session ID] : " + session.getId() + " [Received] : " + message);
         handleMessageFromClient(message, session);
     }
@@ -51,8 +52,7 @@ public class ServerWebSocket {
     }
 
     // Incoming Message handling from client
-    private void handleMessageFromClient(String s, Session session) {
-
+    private void handleMessageFromClient(String s, Session session) throws IOException {
         Gson gson = new Gson();
         Message message;
 
@@ -82,7 +82,7 @@ public class ServerWebSocket {
                     break;
                 case SUBSCRIBE:
                     //subscribe channel if this has not been done.
-                    if (channels.get(channel) == null) {
+                    if (channels.get(channel) != null) {
                         channels.get(channel).add(session);
                     }
                     break;
@@ -97,9 +97,9 @@ public class ServerWebSocket {
                         if (channel.equals("Lobby")) {
                             addToGames(s);
                         }
+                        System.out.println("[WebSocket send ] " + s + " to:");
                         for (Session sess : channels.get(channel)) {
-                            // Use async communication
-                            sess.getAsyncRemote().sendText(s);
+                            sess.getBasicRemote().sendText(s);
                         }
                     }
                     break;
