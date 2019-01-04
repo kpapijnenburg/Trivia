@@ -2,6 +2,8 @@ package websocket.client;
 
 import websocket.shared.Message;
 
+import java.io.IOException;
+
 public interface ICommunicator {
 
     /**
@@ -49,5 +51,7 @@ public interface ICommunicator {
      * @param message the message to be sent
      */
     public void update(Message message);
+
+    public void connect(String channel) throws IOException;
 
 }

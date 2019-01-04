@@ -122,6 +122,15 @@ public class ClientWebSocket extends Communicator {
         sendToServer(wsMessage);
     }
 
+    @Override
+    public void connect(String channel) throws IOException {
+       Message wsMessage = new Message();
+       wsMessage.setChannel(channel);
+       wsMessage.setOperation(Operation.CONNECTED);
+
+       sendToServer(wsMessage);
+    }
+
     private void sendToServer(Message message) {
         String s = gson.toJson(message);
 
@@ -155,14 +164,14 @@ public class ClientWebSocket extends Communicator {
         try{
             wsMessage = gson.fromJson(message, Message.class);
         } catch (JsonSyntaxException e){
-            System.out.println("Cannot parse JSON" + message);
+            System.out.println("Cannot parse JSON in ClientWebSocket" + message);
         }
 
         // The only operation to be processed will be the Update
         Operation operation;
         operation = wsMessage.getOperation();
 
-        if (operation == null || operation != Operation.UPDATE){
+        if (operation == null || operation != Operation.UPDATE && operation != Operation.CONNECTED){
             return;
         }
 
@@ -178,10 +187,14 @@ public class ClientWebSocket extends Communicator {
             return;
         }
 
+        // Obtain operation from message
+
+
         // Create object to be send to observers.
         Message observerMessage = new Message();
         observerMessage.setChannel(channel);
         observerMessage.setContent(content);
+        observerMessage.setOperation(operation);
 
         // Notify observers
         this.setChanged();

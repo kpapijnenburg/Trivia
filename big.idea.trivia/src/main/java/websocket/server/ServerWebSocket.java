@@ -1,6 +1,7 @@
 package websocket.server;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import websocket.shared.Message;
 import websocket.shared.Operation;
@@ -21,6 +22,9 @@ public class ServerWebSocket {
     // Map of each list of sessions that are subscribed to that channel
     private static final Map<String, List<Session>> channels = new HashMap<>();
 
+    // List of all games
+    private static final List<JsonObject> games = new ArrayList<>();
+
     @OnOpen
     public void onConnect(Session session) {
         System.out.println("new connection: sessionID: " + session.getId());
@@ -35,13 +39,13 @@ public class ServerWebSocket {
     }
 
     @OnClose
-    public void onClose(CloseReason reason, Session session){
+    public void onClose(CloseReason reason, Session session) {
         System.out.println("[WebSocket Session ID] : " + session.getId() + " [Socket Closed]: " + reason);
         sessions.remove(session);
     }
 
     @OnError
-    public void onError(Throwable cause, Session session){
+    public void onError(Throwable cause, Session session) {
         System.out.println("[WebSocket Session ID] : " + session.getId() + "[ERROR]: ");
         cause.printStackTrace(System.err);
     }
@@ -90,14 +94,45 @@ public class ServerWebSocket {
                 case UPDATE:
                     // Send message to all clients subscribed to this channel
                     if (channels.get(channel) != null) {
+                        if (channel.equals("Lobby")) {
+                            addToGames(s);
+                        }
                         for (Session sess : channels.get(channel)) {
                             // Use async communication
                             sess.getAsyncRemote().sendText(s);
                         }
                     }
                     break;
+                case CONNECTED:
+                    if (channel.equals("Lobby")) {
+                        getAllGames(s);
+                    }
                 default:
                     System.out.println("Cannot parse JSON " + s);
+            }
+        }
+    }
+
+    private void addToGames(String s) {
+        Gson gson = new Gson();
+
+        Message message = gson.fromJson(s, Message.class);
+
+        JsonObject game = gson.fromJson(message.getContent(), JsonObject.class);
+        games.add(game);
+    }
+
+    private void getAllGames(String s) {
+        Gson gson = new Gson();
+
+        Message message = gson.fromJson(s, Message.class);
+        message.setContent(gson.toJson(games));
+
+        for (Session session : channels.get("Lobby")) {
+            try {
+                session.getBasicRemote().sendText(gson.toJson(message));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

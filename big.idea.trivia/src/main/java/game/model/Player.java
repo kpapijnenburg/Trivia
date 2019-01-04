@@ -4,17 +4,19 @@ package game.model;
 import user.model.User;
 
 public class Player extends User {
-    private int id;
+    private int playeId;
     private int strikes;
     private int score;
 
     //region Getter/Setter
-    public int getId() {
-        return id;
+
+
+    public int getPlayeId() {
+        return playeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPlayeId(int playeId) {
+        this.playeId = playeId;
     }
 
     public int getStrikes() {
@@ -39,15 +41,15 @@ public class Player extends User {
 
     }
 
-    public Player(int id, int strikes, int score) {
-        this.id = id;
+    public Player(int playerId, int strikes, int score) {
+        this.playeId = playerId;
         this.strikes = strikes;
         this.score = score;
     }
 
-    public Player(String name, String password, int strikes, int score) {
-        super(name, password);
-        this.id = super.getId();
+    public Player(String name,  int strikes, int score) {
+        super(name);
+        this.playeId = super.getId();
         this.strikes = strikes;
         this.score = score;
     }

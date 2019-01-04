@@ -36,7 +36,7 @@ public class MultiPlayerGame extends Game {
         PlayerB = playerB;
     }
 
-    private MultiPlayerGame(){
+    public MultiPlayerGame() {
 
     }
 
@@ -44,5 +44,14 @@ public class MultiPlayerGame extends Game {
         super(id, difficulty, questions);
         this.playerA = playerA;
         PlayerB = playerB;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return this.playerA.getName() + "'s game " + "difficulty: " + this.getDifficulty();
+        } catch (Exception e) {
+            return "Error with game.";
+        }
     }
 }

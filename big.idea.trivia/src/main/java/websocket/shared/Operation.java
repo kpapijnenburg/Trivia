@@ -5,5 +5,6 @@ public enum Operation {
     UNREGISTER,
     SUBSCRIBE,
     UNSUBSCRIBE,
-    UPDATE
+    UPDATE,
+    CONNECTED
 }

@@ -18,7 +18,6 @@ public class HomepageUIController {
 
     public Button btn_singleplayer;
 
-    private SinglePlayerGame singlePlayerGame;
     private Application application;
 
     public HomepageUIController() {
@@ -41,7 +40,7 @@ public class HomepageUIController {
 
         alert.getButtonTypes().setAll(easy, medium, hard);
 
-        singlePlayerGame = SinglePlayerGame.getInstance();
+        SinglePlayerGame singlePlayerGame = SinglePlayerGame.getInstance();
 
         Optional<ButtonType> result = alert.showAndWait();
 

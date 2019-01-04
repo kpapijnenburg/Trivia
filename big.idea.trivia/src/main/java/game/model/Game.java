@@ -9,18 +9,27 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private int id;
+    private int gameId;
     private Difficulty difficulty;
     private ArrayList<Question> questions;
     private Category category;
     //region Getter/Setter
 
-    public int getId() {
-        return id;
+
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public static Game getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(Game instance) {
+        Game.instance = instance;
     }
 
     public Difficulty getDifficulty() {
@@ -55,8 +64,8 @@ public class Game {
         questions = new ArrayList<>();
     }
 
-    Game(int id, Difficulty difficulty, ArrayList<Question> questions) {
-        this.id = id;
+    Game(int gameId, Difficulty difficulty, ArrayList<Question> questions) {
+        this.gameId = gameId;
         this.difficulty = difficulty;
         this.questions = questions;
     }
