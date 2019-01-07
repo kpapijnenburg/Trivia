@@ -7,8 +7,29 @@ import java.util.ArrayList;
 
 public class MultiPlayerGame extends Game {
 
+    private String gameName;
     private Player playerA;
     private Player PlayerB;
+
+    public String getGameName() {
+        if (gameName == null){
+            setGameName();
+            return gameName;
+        }
+        else {
+            return "";
+        }
+    }
+
+    private void setGameName() {
+        if (playerA != null){
+            this.gameName = playerA.getName() + "'s game";
+        }
+    }
+
+    public static void setInstance(MultiPlayerGame instance) {
+        MultiPlayerGame.instance = instance;
+    }
 
     public Player getPlayerA() {
         return playerA;
