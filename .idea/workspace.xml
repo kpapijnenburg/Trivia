@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b412ca19-7815-4822-9937-9058698150f4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/game/model/GameState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/IQuestionContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/IQuestionContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionSqlContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionSqlContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/java/game/model/MultiPlayerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/java/game/model/MultiPlayerGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/main/resources/multiplayer_game_ui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/main/resources/multiplayer_game_ui.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/big.idea.trivia/src/test/java/question/QuestionTestContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/big.idea.trivia/src/test/java/question/QuestionTestContext.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,30 +19,34 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/gs_rest_service$Application.ic" NAME="Application Coverage Results" MODIFIED="1546888272480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>application.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/gs_rest_service$WebSocketServer.ic" NAME="WebSocketServer Coverage Results" MODIFIED="1546867133385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>websocket.server.*</FILTER>
     </SUITE>
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="241" />
+    <option name="myElementSize" value="271" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1935607860">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="3" />
-          <entry key="fxml" value="4" />
+          <entry key="fxml" value="6" />
           <entry key="iml" value="1" />
-          <entry key="java" value="58" />
+          <entry key="java" value="72" />
           <entry key="properties" value="1" />
           <entry key="xml" value="1" />
         </counts>
@@ -49,24 +55,24 @@
         <counts>
           <entry key="CLASS" value="3" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="58" />
+          <entry key="JAVA" value="72" />
           <entry key="Properties" value="1" />
-          <entry key="XML" value="5" />
+          <entry key="XML" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="19" />
           <entry key="fxml" value="15" />
-          <entry key="java" value="4848" />
+          <entry key="java" value="5586" />
           <entry key="properties" value="15" />
-          <entry key="txt" value="167" />
+          <entry key="txt" value="217" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4848" />
-          <entry key="PLAIN_TEXT" value="186" />
+          <entry key="JAVA" value="5586" />
+          <entry key="PLAIN_TEXT" value="236" />
           <entry key="Properties" value="15" />
           <entry key="XML" value="15" />
         </counts>
@@ -75,72 +81,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/HomepageUIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="59" column="72" lean-forward="true" selection-start-line="59" selection-start-column="72" selection-end-line="59" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/multiplayer_game_ui.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/lobby_ui.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2275">
-              <caret line="159" column="9" selection-start-line="159" selection-start-column="9" selection-end-line="159" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5009#5010#0" expanded="true" />
-                <element signature="e#5051#5052#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="493">
+              <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/GameRepository.java">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/CategoryUIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-              <folding>
-                <element signature="e#239#240#0" expanded="true" />
-                <element signature="e#298#299#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/IGameContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/GameSqlContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTestContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-              <folding>
-                <element signature="e#360#361#0" expanded="true" />
-                <element signature="e#393#394#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="401">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -148,12 +140,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/client/ClientWebSocket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="199">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
               <folding>
                 <element signature="e#1310#1311#0" expanded="true" />
                 <element signature="e#1348#1349#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/LobbyUIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/GameService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -189,7 +211,13 @@
         <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/game/model/GameState.java" />
         <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/game/model/MultiPlayerGame.java" />
         <option value="$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionSqlContext.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/IQuestionContext.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/test/java/question/QuestionTestContext.java" />
         <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionRepository.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionController.java" />
+        <option value="$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java" />
       </list>
     </option>
   </component>
@@ -266,7 +294,36 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gs-rest-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="big.idea.trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="question" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gs-rest-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="big.idea.trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gs-rest-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="big.idea.trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="gs-rest-service" type="b2602c69:ProjectViewProjectNode" />
@@ -278,12 +335,20 @@
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="uicontrollers" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="gs-rest-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="big.idea.trivia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,7 +358,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546869663797" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546889528642" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -381,7 +446,8 @@
       <workItem from="1546594285705" duration="24000" />
       <workItem from="1546594429207" duration="811000" />
       <workItem from="1546595265978" duration="2799000" />
-      <workItem from="1546847636774" duration="21778000" />
+      <workItem from="1546847636774" duration="21936000" />
+      <workItem from="1546879333688" duration="3179000" />
     </task>
     <task id="LOCAL-00001" summary="Added lobby functionality">
       <created>1546598917315</created>
@@ -411,17 +477,23 @@
       <option name="project" value="LOCAL" />
       <updated>1546864890443</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Finished first iteration of the multiplayer game.">
+      <created>1546869706131</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1546869706131</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25412000" />
+    <option name="totallyTimeSpent" value="28749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12260128" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.123667374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -431,7 +503,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32848233" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32744282" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3918919" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -443,7 +515,6 @@
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32952183" />
-      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -456,6 +527,7 @@
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="CDI" order="10" />
       <window_info anchor="right" id="Bean Validation" order="11" />
+      <window_info anchor="right" id="Coverage" order="12" side_tool="true" weight="0.32995737" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,7 +541,8 @@
     <MESSAGE value="Added MultiPlayerGameController and UI" />
     <MESSAGE value="Added name propertie to multiplayergame" />
     <MESSAGE value="Finished connecting to game made by other user." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished connecting to game made by other user." />
+    <MESSAGE value="Finished first iteration of the multiplayer game." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished first iteration of the multiplayer game." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -481,16 +554,10 @@
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java</url>
-          <line>105</line>
+          <url>file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java</url>
+          <line>64</line>
           <properties />
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java</url>
-          <line>218</line>
-          <properties />
-          <option name="timeStamp" value="51" />
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -523,14 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/lobby_ui.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -587,13 +646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/client/ICommunicator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="434">
@@ -608,48 +660,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="2569" selection-start-line="2569" selection-end-line="2569" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/lang/Runnable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="485">
           <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/CategoryUIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/HomepageUIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="51" column="62" lean-forward="true" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/LobbyUIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -668,24 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/server/ServerWebSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="82" column="49" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/multiplayer_game_ui.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -709,38 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTestContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-          <folding>
-            <element signature="e#360#361#0" expanded="true" />
-            <element signature="e#393#394#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/client/ClientWebSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
-          <folding>
-            <element signature="e#1310#1311#0" expanded="true" />
-            <element signature="e#1348#1349#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/GameRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -755,26 +719,173 @@
     <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/IGameContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/game/GameSqlContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/user/UserTestContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+          <folding>
+            <element signature="e#360#361#0" expanded="true" />
+            <element signature="e#393#394#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/IQuestionContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionSqlContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2210">
+          <caret line="136" column="13" lean-forward="true" selection-start-line="136" selection-start-column="13" selection-end-line="136" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/server/ServerWebSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="82" column="49" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/test/java/question/QuestionTestContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="802">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="e#1880#1881#0" expanded="true" />
+            <element signature="e#1907#1908#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/MultiPlayerGameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2275">
-          <caret line="159" column="9" selection-start-line="159" selection-start-column="9" selection-end-line="159" selection-end-column="9" />
+        <state relative-caret-position="199">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5009#5010#0" expanded="true" />
-            <element signature="e#5051#5052#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="2569" selection-start-line="2569" selection-end-line="2569" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/GameService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/services/QuestionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/CategoryUIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/api/question/QuestionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/websocket/client/ClientWebSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#1310#1311#0" expanded="true" />
+            <element signature="e#1348#1349#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/LobbyUIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/java/application/uicontrollers/HomepageUIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="59" column="72" lean-forward="true" selection-start-line="59" selection-start-column="72" selection-end-line="59" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/multiplayer_game_ui.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="83" column="26" lean-forward="true" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/big.idea.trivia/src/main/resources/lobby_ui.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
         </state>
       </provider>
     </entry>

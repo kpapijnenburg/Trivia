@@ -2,6 +2,7 @@ package application.services;
 
 import com.google.gson.*;
 import game.model.Game;
+import game.model.MultiPlayerGame;
 import org.apache.commons.lang.StringEscapeUtils;
 import question.model.Answer;
 import question.model.Question;
@@ -9,6 +10,7 @@ import question.model.Question;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class QuestionService {
     }
 
     public List<Question> getQuestions(Game game) throws IOException {
-        URL url = new URL(baseUrl + "?categoryId=" + game.getCategory().getId() + "&difficulty=" + game.getDifficulty().toString());
+        URL url = new URL(baseUrl + "s?categoryId=" + game.getCategory().getId() + "&difficulty=" + game.getDifficulty().toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
@@ -48,7 +50,6 @@ public class QuestionService {
     }
 
     public boolean checkAnswer(int questionId, String answer) throws IOException {
-        //todo veraderen naar post.
         String paramValue = "/check?questionId=" + questionId + "&answer=" + URLEncoder.encode(answer, "UTF-8");
         String urlString = baseUrl + paramValue;
 
@@ -60,4 +61,17 @@ public class QuestionService {
         return jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), boolean.class);
     }
 
+    public Question getQuestion(MultiPlayerGame game) throws IOException {
+        URL url = new URL(baseUrl + "?categoryId=" + game.getCategory().getId() + "&difficulty=" + game.getDifficulty().toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        Question question = jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), Question.class);
+
+        for (Answer answer: question.getAnswers()){
+            StringEscapeUtils.unescapeHtml(answer.getAnswer());
+        }
+
+        return question;
+    }
 }

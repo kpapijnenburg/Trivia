@@ -10,7 +10,7 @@ import java.util.List;
 
 public class QuestionSqlContext implements IQuestionContext {
     @Override
-    public List<Question> getQuestions(int categoryId, String difficulty) throws ClassNotFoundException, SQLException {
+    public List<Question> getQuestions(int categoryId, String difficulty) {
         ArrayList<Question> questions = new ArrayList<>();
 
         try {
@@ -129,7 +129,52 @@ public class QuestionSqlContext implements IQuestionContext {
 
         return answer;
     }
+
+    @Override
+    public Question getQuestion(int categoryId, String difficulty) {
+        Question question = null;
+
+        try {
+            //Set up connection
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://mssql.fhict.local;database=dbi388613", "dbi388613", "wachtwoord");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT TOP 1 * FROM Trivia.Question WHERE Trivia.Question.Categoryid = ? AND Trivia.Question.difficulty = ? ORDER BY NEWID()"
+            );
+
+            statement.setInt(1, categoryId);
+            statement.setString(2, difficulty);
+
+            ResultSet result = statement.executeQuery();
+
+            // Add items to list
+            while (result.next()) {
+                question = new Question(
+                        result.getInt(1),
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5),
+                        connectAnswers(result.getInt(1))
+
+                );
+            }
+
+            //Close connections
+            result.close();
+            statement.close();
+            connection.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return question;
+    }
 }
+
+
 
 
 

@@ -44,15 +44,12 @@ public class MultiPlayerGameController implements Observer {
 
     private Communicator communicator;
 
-    private boolean playerBTurn = true;
-
     private MultiPlayerGame game;
     private Application application;
     private GameService gameService;
     private QuestionService questionService;
 
     private ArrayList<Button> buttons;
-    private ArrayList<Question> questions;
     private Question currentQuestion;
 
     public MultiPlayerGameController() {
@@ -62,7 +59,6 @@ public class MultiPlayerGameController implements Observer {
         this.game = MultiPlayerGame.getInstance();
 
         buttons = new ArrayList<>();
-        questions = new ArrayList<>();
 
     }
 
@@ -96,25 +92,14 @@ public class MultiPlayerGameController implements Observer {
     private void startGame() throws IOException {
         if (game.getGameState() == GameState.NOT_STARTED) {
             game.setGameState(GameState.PLAYER_B_TURN);
-            this.questions = (ArrayList<Question>) questionService.getQuestions(game);
-            getQuestion();
+            setTurn();
             requestUpdate();
         }
     }
 
     private void getQuestion() throws IOException {
-        if (questions.size() == 0) {
-            this.questions = (ArrayList<Question>) questionService.getQuestions(game);
-        } else {
-            currentQuestion = questions.get(0);
-            Platform.runLater(() -> {
-                setButtons();
-                setQuestionText(currentQuestion.getQuestion());
-            });
-            questions.remove(0);
-        }
+        this.currentQuestion = questionService.getQuestion(game);
     }
-
 
     private void waitForPlayerB() throws IOException {
         game.setGameState(GameState.NOT_STARTED);
@@ -126,6 +111,7 @@ public class MultiPlayerGameController implements Observer {
 
     private void updateUI() {
         Platform.runLater(() -> {
+            // Update player A information
             Player playerA = game.getPlayerA();
 
             lb_playerA_name.setText(playerA.getName());
@@ -133,6 +119,7 @@ public class MultiPlayerGameController implements Observer {
             lb_strikes_playerA.setText("" + playerA.getStrikes());
 
             if (game.getPlayerB() != null) {
+                // Update player B information if there is a player B present.
                 Player playerB = game.getPlayerB();
 
                 lb_playerB_name.setText(playerB.getName());
@@ -141,6 +128,12 @@ public class MultiPlayerGameController implements Observer {
             }
 
             lb_status.setText(game.getGameState().toString());
+
+            if (currentQuestion != null) {
+                // Update question text and buttons if a question has been retrieved.
+                txt_question.setText(currentQuestion.getQuestion());
+                setButtons();
+            }
         });
 
     }
@@ -160,9 +153,6 @@ public class MultiPlayerGameController implements Observer {
         }
     }
 
-    private void setQuestionText(String text) {
-        txt_question.setText(text);
-    }
 
     private void setTurn() throws IOException {
         switch (game.getGameState()) {
@@ -194,6 +184,16 @@ public class MultiPlayerGameController implements Observer {
         }
     }
 
+    private void switchGameState() throws IOException {
+        switch (game.getGameState()) {
+            case PLAYER_A_TURN:
+                game.setGameState(GameState.PLAYER_B_TURN);
+                break;
+            case PLAYER_B_TURN:
+                game.setGameState(GameState.PLAYER_A_TURN);
+        }
+    }
+
     private void requestUpdate() throws IOException {
         Gson gson = new Gson();
 
@@ -213,16 +213,6 @@ public class MultiPlayerGameController implements Observer {
         checkAnswer(btn_answerA.getText());
         switchGameState();
         requestUpdate();
-    }
-
-    private void switchGameState() throws IOException {
-        switch (game.getGameState()) {
-            case PLAYER_A_TURN:
-                game.setGameState(GameState.PLAYER_B_TURN);
-                break;
-            case PLAYER_B_TURN:
-                game.setGameState(GameState.PLAYER_A_TURN);
-        }
     }
 
 
@@ -253,8 +243,7 @@ public class MultiPlayerGameController implements Observer {
             awardStrike();
         }
 
-        updateUI();
-
+        setTurn();
     }
 
     private void awardStrike() throws IOException {
@@ -313,10 +302,5 @@ public class MultiPlayerGameController implements Observer {
         game = gson.fromJson(content, MultiPlayerGame.class);
 
         updateUI();
-        try {
-            setTurn();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

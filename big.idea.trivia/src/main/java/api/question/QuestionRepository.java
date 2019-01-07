@@ -22,4 +22,9 @@ public class QuestionRepository {
 
         return answer.equals(answerFromDb.getAnswer());
     }
+
+
+    public Question getQuestion(int categoryId, String difficulty){
+        return context.getQuestion(categoryId, difficulty);
+    }
 }

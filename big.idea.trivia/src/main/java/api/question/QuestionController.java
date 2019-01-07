@@ -14,14 +14,19 @@ public class QuestionController {
 
     private QuestionRepository repository = new QuestionRepository(new QuestionSqlContext());
 
-    @RequestMapping(value = "/question" , method = RequestMethod.GET)
-    public List<Question> getQuestion(@RequestParam(value = "categoryId") int categoryId, @RequestParam(value = "difficulty") String difficulty) throws SQLException, ClassNotFoundException {
+    @RequestMapping(value = "/questions" , method = RequestMethod.GET)
+    public List<Question> getQuestions(@RequestParam(value = "categoryId") int categoryId, @RequestParam(value = "difficulty") String difficulty) throws SQLException, ClassNotFoundException {
         return repository.getQuestions(categoryId, difficulty);
     }
 
     @RequestMapping(value = "question/check", method = RequestMethod.GET)
     public boolean checkAnswer(@RequestParam(value = "questionId") int questionId, @RequestParam(value = "answer") String answer){
         return repository.checkAnswer(questionId, answer);
+    }
+
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    public Question getQuestion(@RequestParam(value = "categoryId") int categoryId, @RequestParam(value = "difficulty") String difficulty){
+        return repository.getQuestion(categoryId, difficulty);
     }
 }
 

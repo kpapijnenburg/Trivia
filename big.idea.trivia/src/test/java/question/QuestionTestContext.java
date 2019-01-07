@@ -65,6 +65,11 @@ public class QuestionTestContext implements IQuestionContext {
         }
         return null;
     }
+
+    @Override
+    public Question getQuestion(int categoryId, String difficulty) {
+        return null;
+    }
 }
 
 
