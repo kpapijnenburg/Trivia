@@ -24,11 +24,13 @@ import websocket.shared.Operation;
 import java.io.IOException;
 import java.util.*;
 
+@SuppressWarnings("Duplicates")
 public class LobbyUIController implements Observer {
 
     public Button btn_back;
     public Button btn_start;
     public ListView<MultiPlayerGame> lst_games;
+    public Button btn_create;
     private Application application;
 
     private Communicator communicator = null;
@@ -54,12 +56,14 @@ public class LobbyUIController implements Observer {
         // Subsribe to channel
         communicator.subscribe("Lobby");
 
+        // Connect to lobby to receive all current accessible games.
         communicator.connect("Lobby");
 
     }
 
     public void btnBackClicked(ActionEvent actionEvent) throws IOException {
 
+        // Unsubscribe from the lobby
         communicator.unsubscribe("lobby");
 
         application.openStage("homepage_ui.fxml");
@@ -69,12 +73,29 @@ public class LobbyUIController implements Observer {
     }
 
     public void btnStartClicked(ActionEvent actionEvent) {
+        User user = Application.currentUser;
+        MultiPlayerGame game = lst_games.getSelectionModel().getSelectedItem();
 
+        if (game != null && user != null){
+            game.setPlayerB(new Player(user.getName(), 0,0));
+
+            // Subscribe to playerA's game
+            try {
+                communicator.subscribe(game.getPlayerA().getName() + "'s game");
+
+                application.openStage("multiplayer_game_ui.fxml");
+
+                Stage stageToClose = (Stage) btn_back.getScene().getWindow();
+                stageToClose.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
-    public void btnCreateClicked(ActionEvent event) {
-        //todo zorgen dat een speler maar een game kan beginnen.
+    public void btnCreateClicked(ActionEvent event) throws IOException {
         MultiPlayerGame game = new MultiPlayerGame();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Choose a difficulty for the game.");
 
@@ -100,6 +121,14 @@ public class LobbyUIController implements Observer {
 
         broadcast(game);
 
+        btn_create.setDisable(true);
+        btn_start.setDisable(true);
+
+        application.openStage("multiplayer_game_ui.fxml");
+
+        Stage stageToClose = (Stage) btn_back.getScene().getWindow();
+        stageToClose.close();
+
     }
 
     private void broadcast(MultiPlayerGame game) {
@@ -113,6 +142,7 @@ public class LobbyUIController implements Observer {
 
             communicator.register(game.getPlayerA().getName() + "'s game");
             communicator.subscribe(game.getPlayerA().getName() + "'s game");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

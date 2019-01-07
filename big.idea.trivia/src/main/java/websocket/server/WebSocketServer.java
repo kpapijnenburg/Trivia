@@ -6,7 +6,7 @@ import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainer
 
 import javax.websocket.server.ServerContainer;
 
-public class Server {
+public class WebSocketServer {
     private static final int PORT = 9000;
 
     public static void main(String[] args) {
