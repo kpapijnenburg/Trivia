@@ -2,6 +2,8 @@ package application.uicontrollers;
 
 import application.Application;
 import application.services.CategoryService;
+import game.model.Game;
+import game.model.MultiPlayerGame;
 import game.model.SinglePlayerGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +25,7 @@ public class CategoryUIController {
     public Button btn_choose;
     public ComboBox<String> cmb_category;
 
-    private SinglePlayerGame singlePlayerGame;
+    private Game singlePlayerGame;
     private ObservableList<Category> categories;
 
     public CategoryUIController() throws MalformedURLException {

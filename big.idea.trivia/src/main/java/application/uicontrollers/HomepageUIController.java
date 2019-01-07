@@ -14,6 +14,7 @@ import question.model.Enums.Difficulty;
 import java.io.IOException;
 import java.util.Optional;
 
+@SuppressWarnings("Duplicates")
 public class HomepageUIController {
 
     public Button btn_singleplayer;

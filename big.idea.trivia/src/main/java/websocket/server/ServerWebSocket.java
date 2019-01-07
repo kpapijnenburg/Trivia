@@ -3,6 +3,8 @@ package websocket.server;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import game.model.Game;
+import game.model.MultiPlayerGame;
 import websocket.shared.Message;
 import websocket.shared.Operation;
 
@@ -24,7 +26,7 @@ public class ServerWebSocket {
     private static final Map<String, List<Session>> channels = new HashMap<>();
 
     // List of all games
-    private static final List<JsonObject> games = new ArrayList<>();
+    private static final List<MultiPlayerGame> games = new ArrayList<>();
 
     @OnOpen
     public void onConnect(Session session) {
@@ -91,6 +93,7 @@ public class ServerWebSocket {
                     if (channels.get(channel) != null) {
                         channels.get(channel).remove(session);
                     }
+                    break;
                 case UPDATE:
                     // Send message to all clients subscribed to this channel
                     if (channels.get(channel) != null) {
@@ -107,8 +110,43 @@ public class ServerWebSocket {
                     if (channel.equals("Lobby")) {
                         getAllGames(s);
                     }
+                    break;
+                case REQUEST:
+                    if (channels.get(channel) != null){
+                        getGame(s);
+                    }
+                    break;
                 default:
                     System.out.println("Cannot parse JSON " + s);
+            }
+        }
+    }
+
+    private void getGame(String s) {
+        Gson gson = new Gson();
+
+        Message recievedMessage = gson.fromJson(s, Message.class);
+
+        MultiPlayerGame gameToReturn = null;
+
+        for (MultiPlayerGame game: games){
+            if (game.getGameName().equals(recievedMessage.getContent())){
+                gameToReturn = game;
+            }
+        }
+
+        Message toSend = new Message();
+        toSend.setContent(gson.toJson(gameToReturn));
+        toSend.setOperation(Operation.UPDATE);
+        toSend.setChannel(gameToReturn.getGameName());
+
+        if (gameToReturn != null) {
+            for (Session session : channels.get(gameToReturn.getGameName())) {
+                try{
+                    session.getBasicRemote().sendText(gson.toJson(toSend));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -118,7 +156,7 @@ public class ServerWebSocket {
 
         Message message = gson.fromJson(s, Message.class);
 
-        JsonObject game = gson.fromJson(message.getContent(), JsonObject.class);
+        MultiPlayerGame game = gson.fromJson(message.getContent(), MultiPlayerGame.class);
         games.add(game);
     }
 

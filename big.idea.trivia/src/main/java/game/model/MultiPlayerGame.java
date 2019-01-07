@@ -10,25 +10,22 @@ public class MultiPlayerGame extends Game {
     private String gameName;
     private Player playerA;
     private Player PlayerB;
+    //todo gamestates toevoegen.
+    private static MultiPlayerGame instance = null;
 
     public String getGameName() {
-        if (gameName == null){
+        if (gameName == null) {
             setGameName();
             return gameName;
-        }
-        else {
-            return "";
+        } else {
+            return gameName;
         }
     }
 
     private void setGameName() {
-        if (playerA != null){
+        if (playerA != null) {
             this.gameName = playerA.getName() + "'s game";
         }
-    }
-
-    public static void setInstance(MultiPlayerGame instance) {
-        MultiPlayerGame.instance = instance;
     }
 
     public Player getPlayerA() {
@@ -43,7 +40,9 @@ public class MultiPlayerGame extends Game {
         return PlayerB;
     }
 
-    private static MultiPlayerGame instance = null;
+    public static void setInstance(MultiPlayerGame instance){
+        MultiPlayerGame.instance = instance;
+    }
 
     public static MultiPlayerGame getInstance() {
         if (instance == null) {
@@ -69,10 +68,14 @@ public class MultiPlayerGame extends Game {
 
     @Override
     public String toString() {
-        try {
-            return this.playerA.getName() + "'s game " + "difficulty: " + this.getDifficulty();
-        } catch (Exception e) {
-            return "Error with game.";
+        if (playerA != null) {
+            try {
+                return this.playerA.getName() + "'s game " + "difficulty: " + this.getDifficulty();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Error with game.";
+            }
         }
+        else return "";
     }
 }

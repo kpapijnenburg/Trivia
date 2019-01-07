@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import question.model.Category;
 import question.model.Enums.Difficulty;
 import user.model.User;
 import websocket.client.ClientWebSocket;
@@ -75,13 +76,16 @@ public class LobbyUIController implements Observer {
     public void btnStartClicked(ActionEvent actionEvent) {
         User user = Application.currentUser;
         MultiPlayerGame game = lst_games.getSelectionModel().getSelectedItem();
+        MultiPlayerGame gameInstance = MultiPlayerGame.getInstance();
+        MultiPlayerGame.setInstance(game);
 
         if (game != null && user != null){
             game.setPlayerB(new Player(user.getName(), 0,0));
-
-            // Subscribe to playerA's game
+            MultiPlayerGame.setInstance(game);
+            // Subscribe to playerA's game and unsubscribe to the lobby.
             try {
-                communicator.subscribe(game.getPlayerA().getName() + "'s game");
+                communicator.subscribe(game.getGameName());
+                communicator.unsubscribe("Lobby");
 
                 application.openStage("multiplayer_game_ui.fxml");
 
@@ -96,7 +100,6 @@ public class LobbyUIController implements Observer {
 
 
     public void btnCreateClicked(ActionEvent event) throws IOException {
-        MultiPlayerGame game = new MultiPlayerGame();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Choose a difficulty for the game.");
 
         ButtonType easy = new ButtonType("Easy");
@@ -107,27 +110,35 @@ public class LobbyUIController implements Observer {
 
         Optional<ButtonType> result = alert.showAndWait();
 
+        MultiPlayerGame multiPlayerGame = MultiPlayerGame.getInstance();
+
         if (result.get() == easy) {
-            game.setDifficulty(Difficulty.EASY);
+            multiPlayerGame.setDifficulty(Difficulty.EASY);
         } else if (result.get() == medium) {
-            game.setDifficulty(Difficulty.MEDIUM);
+            multiPlayerGame.setDifficulty(Difficulty.MEDIUM);
         } else if (result.get() == hard) {
-            game.setDifficulty(Difficulty.HARD);
+            multiPlayerGame.setDifficulty(Difficulty.HARD);
         }
+
+        // todo mogelijkheid bieden om per drie vragen een nieuwe category te kiezen.
+        // Eerst de andere functionaliteiten van de multiplayer game maken.
+        multiPlayerGame.setCategory(new Category(1,"General Knowlegde"));
 
         User user = Application.currentUser;
         Player player = new Player(user.getName(), 0, 0);
-        game.setPlayerA(player);
+        multiPlayerGame.setPlayerA(player);
 
-        broadcast(game);
+        broadcast(multiPlayerGame);
+        communicator.subscribe(multiPlayerGame.getGameName());
 
-        btn_create.setDisable(true);
-        btn_start.setDisable(true);
+        // Unsubscribe the lobby.
+        communicator.unsubscribe("Lobby");
 
         application.openStage("multiplayer_game_ui.fxml");
 
         Stage stageToClose = (Stage) btn_back.getScene().getWindow();
         stageToClose.close();
+
 
     }
 
@@ -139,9 +150,7 @@ public class LobbyUIController implements Observer {
             message.setContent(gson.toJson(game));
             message.setChannel("Lobby");
             communicator.update(message);
-
-            communicator.register(game.getPlayerA().getName() + "'s game");
-            communicator.subscribe(game.getPlayerA().getName() + "'s game");
+            communicator.register(game.getGameName());
 
         } catch (Exception e) {
             e.printStackTrace();

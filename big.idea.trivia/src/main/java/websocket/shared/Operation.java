@@ -6,5 +6,6 @@ public enum Operation {
     SUBSCRIBE,
     UNSUBSCRIBE,
     UPDATE,
-    CONNECTED
+    CONNECTED,
+    REQUEST
 }

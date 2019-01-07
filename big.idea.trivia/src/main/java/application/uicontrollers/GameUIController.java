@@ -107,7 +107,6 @@ public class GameUIController {
             setQuestionText(currentQuestion.getQuestion());
             questions.remove(0);
         }
-
     }
 
     private void setButtons() {
