@@ -4,6 +4,7 @@ import application.Application;
 import application.services.GameService;
 import application.services.QuestionService;
 import com.google.gson.Gson;
+import game.model.GameState;
 import game.model.MultiPlayerGame;
 import game.model.Player;
 import javafx.application.Platform;
@@ -39,6 +40,7 @@ public class MultiPlayerGameController implements Observer {
     public Button btn_answerB;
     public Button btn_answerC;
     public Button btn_answerD;
+    public Label lb_status;
 
     private Communicator communicator;
 
@@ -92,11 +94,12 @@ public class MultiPlayerGameController implements Observer {
     }
 
     private void startGame() throws IOException {
-        this.questions = (ArrayList<Question>) questionService.getQuestions(game);
-        getQuestion();
-
-        setTurn();
-        requestUpdate();
+        if (game.getGameState() == GameState.NOT_STARTED) {
+            game.setGameState(GameState.PLAYER_B_TURN);
+            this.questions = (ArrayList<Question>) questionService.getQuestions(game);
+            getQuestion();
+            requestUpdate();
+        }
     }
 
     private void getQuestion() throws IOException {
@@ -104,20 +107,24 @@ public class MultiPlayerGameController implements Observer {
             this.questions = (ArrayList<Question>) questionService.getQuestions(game);
         } else {
             currentQuestion = questions.get(0);
-            setButtons();
-            setQuestionText(currentQuestion.getQuestion());
+            Platform.runLater(() -> {
+                setButtons();
+                setQuestionText(currentQuestion.getQuestion());
+            });
             questions.remove(0);
         }
     }
 
 
-    private void waitForPlayerB() {
+    private void waitForPlayerB() throws IOException {
+        game.setGameState(GameState.NOT_STARTED);
         for (Button button : buttons) {
-            button.setDisable(true);
+            button.setDisable(false);
         }
+        requestUpdate();
     }
 
-    private void updateUI()  {
+    private void updateUI() {
         Platform.runLater(() -> {
             Player playerA = game.getPlayerA();
 
@@ -132,6 +139,8 @@ public class MultiPlayerGameController implements Observer {
                 lb_score_playerB.setText("" + playerB.getScore());
                 lb_strikes_playerB.setText("" + playerB.getStrikes());
             }
+
+            lb_status.setText(game.getGameState().toString());
         });
 
     }
@@ -155,20 +164,33 @@ public class MultiPlayerGameController implements Observer {
         txt_question.setText(text);
     }
 
-    private void setTurn() {
-        if (playerBTurn) {
-            if (game.getPlayerB().getPlayerId() != (Application.currentUser.getId())) {
-                for (Button button : buttons) {
-                    button.setDisable(false);
+    private void setTurn() throws IOException {
+        switch (game.getGameState()) {
+            case PLAYER_A_TURN:
+                getQuestion();
+                if (game.getPlayerA().getName().equals(Application.currentUser.getName())) {
+                    for (Button button : buttons) {
+                        button.setDisable(false);
+                    }
+                } else {
+                    for (Button button : buttons) {
+                        button.setDisable(true);
+                        resetButtons();
+                    }
                 }
-            }
-        }
-        if (!playerBTurn){
-            if (game.getPlayerA().getPlayerId() != (Application.currentUser.getId())){
-                for (Button button : buttons) {
-                    button.setDisable(false);
+                break;
+            case PLAYER_B_TURN:
+                getQuestion();
+                if (game.getPlayerB().getName().equals(Application.currentUser.getName())) {
+                    for (Button button : buttons) {
+                        button.setDisable(false);
+                        resetButtons();
+                    }
+                } else {
+                    for (Button button : buttons) {
+                        button.setDisable(true);
+                    }
                 }
-            }
         }
     }
 
@@ -189,30 +211,36 @@ public class MultiPlayerGameController implements Observer {
 
     public void btnAnswerAClicked(ActionEvent event) throws IOException {
         checkAnswer(btn_answerA.getText());
-        playerBTurn = !playerBTurn;
-        setTurn();
+        switchGameState();
         requestUpdate();
+    }
+
+    private void switchGameState() throws IOException {
+        switch (game.getGameState()) {
+            case PLAYER_A_TURN:
+                game.setGameState(GameState.PLAYER_B_TURN);
+                break;
+            case PLAYER_B_TURN:
+                game.setGameState(GameState.PLAYER_A_TURN);
+        }
     }
 
 
     public void btnAnswerBClicked(ActionEvent event) throws IOException {
         checkAnswer(btn_answerB.getText());
-        playerBTurn = !playerBTurn;
-        setTurn();
+        switchGameState();
         requestUpdate();
     }
 
     public void btnAnswerCClicked(ActionEvent event) throws IOException {
         checkAnswer(btn_answerC.getText());
-        playerBTurn = !playerBTurn;
-        setTurn();
+        switchGameState();
         requestUpdate();
     }
 
     public void btnAnswerDClicked(ActionEvent event) throws IOException {
         checkAnswer(btn_answerD.getText());
-        playerBTurn = !playerBTurn;
-        setTurn();
+        switchGameState();
         requestUpdate();
     }
 
@@ -226,14 +254,13 @@ public class MultiPlayerGameController implements Observer {
         }
 
         updateUI();
-        getQuestion();
+
     }
 
     private void awardStrike() throws IOException {
-        if (playerBTurn) {
+        if (game.getGameState() == GameState.PLAYER_B_TURN) {
             game.getPlayerB().setStrikes(1);
-        }
-        else{
+        } else {
             game.getPlayerA().setStrikes(1);
         }
 
@@ -243,7 +270,7 @@ public class MultiPlayerGameController implements Observer {
             JOptionPane.showMessageDialog(null, "Game over!");
 
             gameService.saveMultiPlayer(game);
-
+            game.setGameState(GameState.FINISHED);
             application.openStage("homepage_ui.fxml");
 
             Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
@@ -266,10 +293,9 @@ public class MultiPlayerGameController implements Observer {
             points = 3;
         }
 
-        if (playerBTurn) {
+        if (game.getGameState() == GameState.PLAYER_B_TURN) {
             game.getPlayerB().setScore(points);
-        }
-        else {
+        } else {
             game.getPlayerA().setScore(points);
         }
 
@@ -287,5 +313,10 @@ public class MultiPlayerGameController implements Observer {
         game = gson.fromJson(content, MultiPlayerGame.class);
 
         updateUI();
+        try {
+            setTurn();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

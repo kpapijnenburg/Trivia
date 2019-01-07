@@ -10,7 +10,7 @@ public class MultiPlayerGame extends Game {
     private String gameName;
     private Player playerA;
     private Player PlayerB;
-    //todo gamestates toevoegen.
+    private GameState gameState = GameState.NOT_STARTED;
     private static MultiPlayerGame instance = null;
 
     public String getGameName() {
@@ -40,6 +40,10 @@ public class MultiPlayerGame extends Game {
         return PlayerB;
     }
 
+    public void setPlayerB(Player playerB) {
+        PlayerB = playerB;
+    }
+
     public static void setInstance(MultiPlayerGame instance){
         MultiPlayerGame.instance = instance;
     }
@@ -52,18 +56,25 @@ public class MultiPlayerGame extends Game {
         return instance;
     }
 
-    public void setPlayerB(Player playerB) {
-        PlayerB = playerB;
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
     public MultiPlayerGame() {
 
     }
 
-    public MultiPlayerGame(int id, Difficulty difficulty, ArrayList<Question> questions, Player playerA, Player playerB) {
-        super(id, difficulty, questions);
+    public MultiPlayerGame(int gameId, Difficulty difficulty, ArrayList<Question> questions, String gameName, Player playerA, Player playerB, GameState gameState) {
+        super(gameId, difficulty, questions);
+        this.gameName = gameName;
         this.playerA = playerA;
         PlayerB = playerB;
+        this.gameState = gameState;
     }
 
     @Override

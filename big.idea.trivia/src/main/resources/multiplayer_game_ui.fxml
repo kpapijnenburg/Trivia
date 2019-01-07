@@ -80,4 +80,15 @@
          </children>
       </HBox>
    </right>
+   <bottom>
+      <Label fx:id="lb_status" BorderPane.alignment="CENTER">
+         <graphic>
+            <Label text="Status:">
+               <padding>
+                  <Insets right="8.0" />
+               </padding>
+            </Label>
+         </graphic>
+      </Label>
+   </bottom>
 </BorderPane>

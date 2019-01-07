@@ -10,7 +10,7 @@ import user.model.User;
 
 public class UserTests {
     private User user;
-    private UserRepository userRepository = new UserRepository(new UserTestContext());
+    private UserRepository userRepository = new UserRepository(new user.UserTestContext());
 
     @Before
     public void TestInitialize() {
