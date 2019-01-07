@@ -1,6 +1,7 @@
 package application.uicontrollers;
 
 import application.Application;
+import application.services.CategoryService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -9,10 +10,7 @@ import game.model.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import question.model.Category;
 import question.model.Enums.Difficulty;
@@ -23,6 +21,7 @@ import websocket.shared.Message;
 import websocket.shared.Operation;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.*;
 
 @SuppressWarnings("Duplicates")
@@ -32,14 +31,19 @@ public class LobbyUIController implements Observer {
     public Button btn_start;
     public ListView<MultiPlayerGame> lst_games;
     public Button btn_create;
+    public ComboBox<String> cmb_category;
     private Application application;
+    private List<Category> categories;
+    private CategoryService categoryService;
 
     private Communicator communicator = null;
 
     private List<MultiPlayerGame> games = new ArrayList<>();
 
-    public LobbyUIController() {
+    public LobbyUIController() throws MalformedURLException {
         this.application = Application.getInstance();
+        categories = new ArrayList<>();
+        categoryService = new CategoryService();
     }
 
 
@@ -60,6 +64,18 @@ public class LobbyUIController implements Observer {
         // Connect to lobby to receive all current accessible games.
         communicator.connect("Lobby");
 
+        // initialize category combobox
+        categories = FXCollections.observableArrayList(categoryService.getAll());
+
+        ArrayList<String> names = new ArrayList<>();
+        for (Category category : categories) {
+            names.add(category.getName());
+        }
+
+        ObservableList<String> observableList = FXCollections.observableList(names);
+
+        cmb_category.setItems(observableList);
+
     }
 
     public void btnBackClicked(ActionEvent actionEvent) throws IOException {
@@ -76,7 +92,6 @@ public class LobbyUIController implements Observer {
     public void btnStartClicked(ActionEvent actionEvent) {
         User user = Application.currentUser;
         MultiPlayerGame game = lst_games.getSelectionModel().getSelectedItem();
-        MultiPlayerGame gameInstance = MultiPlayerGame.getInstance();
         MultiPlayerGame.setInstance(game);
 
         if (game != null && user != null){
@@ -120,9 +135,17 @@ public class LobbyUIController implements Observer {
             multiPlayerGame.setDifficulty(Difficulty.HARD);
         }
 
-        // todo mogelijkheid bieden om per drie vragen een nieuwe category te kiezen.
-        // Eerst de andere functionaliteiten van de multiplayer game maken.
-        multiPlayerGame.setCategory(new Category(1,"General Knowlegde"));
+        String name = cmb_category.getValue();
+
+        Category category = null;
+
+        for (Category categoryInList : categories) {
+            if (categoryInList.getName().equals(name)) {
+                category = categoryInList;
+            }
+        }
+
+        multiPlayerGame.setCategory(category);
 
         User user = Application.currentUser;
         Player player = new Player(user.getName(), 0, 0);

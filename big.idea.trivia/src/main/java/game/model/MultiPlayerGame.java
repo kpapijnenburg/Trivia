@@ -79,9 +79,9 @@ public class MultiPlayerGame extends Game {
 
     @Override
     public String toString() {
-        if (playerA != null) {
+        if (playerA != null && this.getCategory() != null) {
             try {
-                return this.playerA.getName() + "'s game " + "difficulty: " + this.getDifficulty();
+                return this.playerA.getName() + "'s game " + "| Difficulty: " + this.getDifficulty() + "| Category: " + this.getCategory().getName();
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Error with game.";
