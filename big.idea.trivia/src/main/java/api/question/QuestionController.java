@@ -1,5 +1,6 @@
 package api.question;
 
+import api.interfaces.IQuestionService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-public class QuestionController {
+public class QuestionController implements IQuestionService {
 
     private QuestionRepository repository = new QuestionRepository(new QuestionSqlContext());
 

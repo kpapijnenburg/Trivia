@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import question.model.Enums.Difficulty;
-import question.model.Question;
 import websocket.client.ClientWebSocket;
 import websocket.client.Communicator;
 import websocket.shared.Message;
@@ -50,14 +49,11 @@ public class MultiPlayerGameController implements Observer {
     private QuestionService questionService;
 
     private ArrayList<Button> buttons;
-    private Question currentQuestion;
 
     public MultiPlayerGameController() {
         this.application = Application.getInstance();
         this.gameService = new GameService();
         this.questionService = new QuestionService();
-        this.game = MultiPlayerGame.getInstance();
-
         buttons = new ArrayList<>();
 
     }
@@ -75,15 +71,13 @@ public class MultiPlayerGameController implements Observer {
         buttons.add(btn_answerC);
         buttons.add(btn_answerD);
 
-
+        this.game = MultiPlayerGame.getInstance();
         // If there is no playerB there has to be waited on that player.
         // If player B is present the game can be started.
         if (game.getPlayerB() == null) {
             waitForPlayerB();
-            updateUI();
         } else {
             startGame();
-            updateUI();
         }
         // After each initialization the UI should be updated.
         requestUpdate();
@@ -98,7 +92,8 @@ public class MultiPlayerGameController implements Observer {
     }
 
     private void getQuestion() throws IOException {
-        this.currentQuestion = questionService.getQuestion(game);
+        game.setCurrentQuestion(questionService.getQuestion(game.getCategory().getId(), game.getDifficulty().toString()));
+        requestUpdate();
     }
 
     private void waitForPlayerB() throws IOException {
@@ -110,6 +105,7 @@ public class MultiPlayerGameController implements Observer {
     }
 
     private void updateUI() {
+        Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             // Update player A information
             Player playerA = game.getPlayerA();
@@ -129,21 +125,20 @@ public class MultiPlayerGameController implements Observer {
 
             lb_status.setText(game.getGameState().toString());
 
-            if (currentQuestion != null) {
+            if (game.getCurrentQuestion() != null) {
                 // Update question text and buttons if a question has been retrieved.
-                txt_question.setText(currentQuestion.getQuestion());
+                txt_question.setText(game.getCurrentQuestion().getQuestion());
                 setButtons();
             }
         });
-
     }
 
     private void setButtons() {
         resetButtons();
         Collections.shuffle(buttons);
 
-        for (int i = 0; i < currentQuestion.getAnswers().size(); i++) {
-            buttons.get(i).setText(currentQuestion.getAnswers().get(i).getAnswer());
+        for (int i = 0; i < game.getCurrentQuestion().getAnswers().size(); i++) {
+            buttons.get(i).setText(game.getCurrentQuestion().getAnswers().get(i).getAnswer());
         }
     }
 
@@ -184,13 +179,15 @@ public class MultiPlayerGameController implements Observer {
         }
     }
 
-    private void switchGameState() throws IOException {
+    private void switchGameState() {
         switch (game.getGameState()) {
             case PLAYER_A_TURN:
                 game.setGameState(GameState.PLAYER_B_TURN);
+                //todo uitzoeken of playerA de applicatie gebruikt of playerB
                 break;
             case PLAYER_B_TURN:
                 game.setGameState(GameState.PLAYER_A_TURN);
+                break;
         }
     }
 
@@ -235,7 +232,7 @@ public class MultiPlayerGameController implements Observer {
     }
 
     private void checkAnswer(String answer) throws IOException {
-        boolean result = questionService.checkAnswer(currentQuestion.getId(), answer);
+        boolean result = questionService.checkAnswer(game.getCurrentQuestion().getId(), answer);
 
         if (result) {
             awardPoints();
@@ -258,7 +255,7 @@ public class MultiPlayerGameController implements Observer {
         if (game.getPlayerA().getStrikes() >= 3 || game.getPlayerB().getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
 
-            gameService.saveMultiPlayer(game);
+            //gameService.saveMultiPlayerGame();
             game.setGameState(GameState.FINISHED);
             application.openStage("homepage_ui.fxml");
 

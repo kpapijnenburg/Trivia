@@ -34,7 +34,7 @@ public class RegisterUIController {
         UserService userService = new UserService();
 
         try {
-            userService.register(user);
+            userService.register(user.getName(), user.getPassword());
             JOptionPane.showMessageDialog(null, "User successfully registered.");
 
             application.openStage("login_ui.fxml");

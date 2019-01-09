@@ -11,6 +11,7 @@ public class MultiPlayerGame extends Game {
     private Player playerA;
     private Player PlayerB;
     private GameState gameState = GameState.NOT_STARTED;
+    private Question currentQuestion;
     private static MultiPlayerGame instance = null;
 
     public String getGameName() {
@@ -26,6 +27,14 @@ public class MultiPlayerGame extends Game {
         if (playerA != null) {
             this.gameName = playerA.getName() + "'s game";
         }
+    }
+
+    public Question getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(Question currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
     public Player getPlayerA() {
@@ -81,7 +90,7 @@ public class MultiPlayerGame extends Game {
     public String toString() {
         if (playerA != null && this.getCategory() != null) {
             try {
-                return this.playerA.getName() + "'s game " + "| Difficulty: " + this.getDifficulty() + "| Category: " + this.getCategory().getName();
+                return this.playerA.getName() + "'s game " + " | Difficulty: " + this.getDifficulty() + " | Category: " + this.getCategory().getName();
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Error with game.";

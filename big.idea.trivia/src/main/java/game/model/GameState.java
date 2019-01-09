@@ -5,5 +5,8 @@ public enum GameState {
     ONGOING,
     FINISHED,
     PLAYER_A_TURN,
-    PLAYER_B_TURN
+    PLAYER_B_TURN,
+    YOUR_TURN,
+    OPPONENT_TURN
+
 }

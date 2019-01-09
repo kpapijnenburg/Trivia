@@ -6,17 +6,17 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import user.model.User;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,10 +25,11 @@ import java.util.List;
 public class UserService implements IUserService {
     private String name;
     private String password;
-    private static String baseUrl = "http://localhost:8090/user?";
+    private static String baseUrl = "http://localhost:8090/user";
     private Gson jsonConverter = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
+
 
     public String getName() {
         return name;
@@ -58,22 +59,34 @@ public class UserService implements IUserService {
     }
 
     public User login(String name, String password) throws IOException {
-        //todo naar post veranderen
-        URL url = buildUrl(name, password);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(baseUrl + "/login?");
 
-       return jsonConverter.fromJson(new InputStreamReader(connection.getInputStream()), User.class);
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("name", name));
+        params.add(new BasicNameValuePair("password", password));
+
+        httpPost.setEntity(new UrlEncodedFormEntity(params));
+        CloseableHttpResponse response = client.execute(httpPost);
+
+        ResponseHandler<String> handler = new BasicResponseHandler();
+        String body = handler.handleResponse(response);
+
+        return jsonConverter.fromJson(body, User.class);
 
     }
 
-    public void register(User user) throws IOException, NonUniqueUsernameException {
+
+
+
+    public void register(String name, String password) throws IOException, NonUniqueUsernameException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(baseUrl);
+        HttpPost httpPost = new HttpPost(baseUrl + "/register?");
 
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("name", user.getName()));
-        params.add(new BasicNameValuePair("password", user.getPassword()));
+        params.add(new BasicNameValuePair("name", name));
+        params.add(new BasicNameValuePair("password", password));
+
         httpPost.setEntity(new UrlEncodedFormEntity(params));
 
         CloseableHttpResponse response = client.execute(httpPost);
@@ -81,6 +94,5 @@ public class UserService implements IUserService {
             throw new NonUniqueUsernameException("Username is already taken.");
         }
         client.close();
-
     }
 }

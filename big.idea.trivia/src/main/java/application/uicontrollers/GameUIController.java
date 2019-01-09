@@ -47,7 +47,7 @@ public class GameUIController {
 
     public void initialize() throws IOException {
         if (game.getQuestions().size() == 0) {
-            questions = (ArrayList<Question>) questionService.getQuestions(game);
+            questions = (ArrayList<Question>) questionService.getQuestions(game.getCategory().getId(), game.getDifficulty().toString());
         }
 
         buttons.add(btn_answerA);
@@ -67,7 +67,7 @@ public class GameUIController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            gameService.saveSinglePlayer(game);
+            gameService.saveSinglePlayer(game.getPlayer().getScore(), game.getPlayer().getPlayerId());
             application.openStage("homepage_ui.fxml");
 
             Stage stageToClose = (Stage) lb_strikes.getScene().getWindow();
@@ -156,8 +156,7 @@ public class GameUIController {
 
         if (game.getPlayer().getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
-
-            gameService.saveSinglePlayer(game);
+            gameService.saveSinglePlayer(game.getPlayer().getScore(), game.getPlayer().getPlayerId());
 
             application.openStage("homepage_ui.fxml");
 
