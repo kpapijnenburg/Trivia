@@ -16,20 +16,7 @@ public class UserRepository {
     }
 
     public User login(String name, String password) throws IncorrectCredentialsException {
-        ArrayList<User> users = getAll();
-        User userToReturn = null;
-
-        for (User user : users) {
-            if (user.getName().equals(name) && user.getPassword().equals(password)) {
-                userToReturn = user;
-            }
-        }
-
-        if (userToReturn == null){
-            throw new IncorrectCredentialsException("Username or password is incorrect.");
-        }
-
-        return userToReturn;
+        return context.getByCredentials(name, password);
     }
 
 

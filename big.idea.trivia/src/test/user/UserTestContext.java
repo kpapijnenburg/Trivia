@@ -1,6 +1,7 @@
 package user;
 
 import api.User.IUserContext;
+import api.exceptions.IncorrectCredentialsException;
 import user.model.User;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class UserTestContext implements IUserContext {
 
         return result;
 
+    }
+
+    @Override
+    public User getByCredentials(String name, String password) {
+        return null;
     }
 }
