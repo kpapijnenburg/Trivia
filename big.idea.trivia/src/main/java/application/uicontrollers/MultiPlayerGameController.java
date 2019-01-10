@@ -110,7 +110,7 @@ public class MultiPlayerGameController implements Observer {
     private void updateUI() {
         Platform.setImplicitExit(false);
 
-        // Using platform run later to secure the UI thread is free when the UI needs to be updated.
+        // Using platform run later to secure the UI thread is free when the UI this runnable runs.
         Platform.runLater(() -> {
             // Update player A information
             Player playerA = game.getPlayerA();
@@ -129,10 +129,6 @@ public class MultiPlayerGameController implements Observer {
             }
 
             lb_status.setText(game.getGameState().toString());
-
-            if (game.getCurrentQuestion() != null) {
-
-            }
         });
     }
 
