@@ -1,9 +1,9 @@
 package question;
 
 import api.question.IQuestionContext;
-import question.model.Answer;
-import question.model.Enums.Difficulty;
-import question.model.Question;
+import application.model.Answer;
+import application.model.Enums.Difficulty;
+import application.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;

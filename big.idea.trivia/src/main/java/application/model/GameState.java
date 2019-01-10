@@ -1,4 +1,4 @@
-package game.model;
+package application.model;
 
 public enum GameState {
     NOT_STARTED,

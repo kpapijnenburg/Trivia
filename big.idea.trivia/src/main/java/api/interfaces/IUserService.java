@@ -2,7 +2,7 @@ package api.interfaces;
 
 import api.exceptions.IncorrectCredentialsException;
 import api.exceptions.NonUniqueUsernameException;
-import user.model.User;
+import application.model.User;
 
 import java.io.IOException;
 

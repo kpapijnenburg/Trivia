@@ -4,16 +4,16 @@ import application.Application;
 import application.services.GameService;
 import application.services.QuestionService;
 import com.google.gson.Gson;
-import game.model.GameState;
-import game.model.MultiPlayerGame;
-import game.model.Player;
+import application.model.GameState;
+import application.model.MultiPlayerGame;
+import application.model.Player;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import question.model.Enums.Difficulty;
+import application.model.Enums.Difficulty;
 import websocket.client.ClientWebSocket;
 import websocket.client.Communicator;
 import websocket.shared.Message;
@@ -150,9 +150,9 @@ public class MultiPlayerGameController implements Observer {
 
 
     private void setTurn() throws IOException {
+        getQuestion();
         switch (game.getGameState()) {
             case PLAYER_A_TURN:
-                getQuestion();
                 if (game.getPlayerA().getName().equals(Application.currentUser.getName())) {
                     for (Button button : buttons) {
                         button.setDisable(false);
@@ -165,7 +165,6 @@ public class MultiPlayerGameController implements Observer {
                 }
                 break;
             case PLAYER_B_TURN:
-                getQuestion();
                 if (game.getPlayerB().getName().equals(Application.currentUser.getName())) {
                     for (Button button : buttons) {
                         button.setDisable(false);
@@ -183,7 +182,6 @@ public class MultiPlayerGameController implements Observer {
         switch (game.getGameState()) {
             case PLAYER_A_TURN:
                 game.setGameState(GameState.PLAYER_B_TURN);
-                //todo uitzoeken of playerA de applicatie gebruikt of playerB
                 break;
             case PLAYER_B_TURN:
                 game.setGameState(GameState.PLAYER_A_TURN);

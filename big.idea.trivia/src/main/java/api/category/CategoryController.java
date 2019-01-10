@@ -4,7 +4,7 @@ import api.interfaces.ICategoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import question.model.Category;
+import application.model.Category;
 
 import java.util.List;
 

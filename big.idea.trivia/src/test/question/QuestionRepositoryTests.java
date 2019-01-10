@@ -3,15 +3,15 @@ package question;
 import api.question.QuestionRepository;
 import org.junit.Assert;
 import org.junit.Test;
-import question.model.Enums.Difficulty;
-import question.model.Question;
+import application.model.Enums.Difficulty;
+import application.model.Question;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QuestionRepositoryTests {
     ArrayList<Question> questions;
-    QuestionRepository repository = new QuestionRepository(new QuestionTestContext(1, Difficulty.EASY));
+    QuestionRepository repository = new QuestionRepository(new question.QuestionTestContext(1, Difficulty.EASY));
 
     @Test
     public void getQuestions_ShouldReturnThreeQuestions_WhenInvoked() throws SQLException, ClassNotFoundException {

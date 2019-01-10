@@ -3,8 +3,8 @@ package application.services;
 import api.interfaces.IQuestionService;
 import com.google.gson.*;
 import org.apache.commons.lang.StringEscapeUtils;
-import question.model.Answer;
-import question.model.Question;
+import application.model.Answer;
+import application.model.Question;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

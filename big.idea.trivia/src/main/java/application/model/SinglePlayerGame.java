@@ -1,7 +1,6 @@
-package game.model;
+package application.model;
 
-import question.model.Enums.Difficulty;
-import question.model.Question;
+import application.model.Enums.Difficulty;
 
 import java.util.ArrayList;
 

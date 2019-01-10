@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import user.model.User;
+import application.model.User;
 
 import javax.swing.*;
 import java.io.IOException;

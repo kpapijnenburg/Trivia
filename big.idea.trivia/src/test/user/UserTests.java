@@ -6,7 +6,7 @@ import api.exceptions.NonUniqueUsernameException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import user.model.User;
+import application.model.User;
 
 public class UserTests {
     private User user;

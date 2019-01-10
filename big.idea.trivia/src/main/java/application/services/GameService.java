@@ -1,10 +1,7 @@
 package application.services;
 
-import api.game.IGameContext;
 import api.interfaces.IGameService;
-import game.model.Game;
-import game.model.MultiPlayerGame;
-import game.model.SinglePlayerGame;
+import application.model.MultiPlayerGame;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,7 +11,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 

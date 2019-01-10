@@ -1,14 +1,11 @@
 package api.game;
 
 import api.interfaces.IGameService;
-import game.model.MultiPlayerGame;
-import game.model.SinglePlayerGame;
+import application.model.MultiPlayerGame;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
 
 @RestController
 public class GameController implements IGameService {

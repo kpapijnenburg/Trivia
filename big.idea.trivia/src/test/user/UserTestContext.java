@@ -1,8 +1,7 @@
 package user;
 
 import api.User.IUserContext;
-import api.exceptions.IncorrectCredentialsException;
-import user.model.User;
+import application.model.User;
 
 import java.util.ArrayList;
 

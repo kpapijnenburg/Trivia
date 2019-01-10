@@ -1,4 +1,4 @@
-package question.model;
+package application.model;
 
 public class Answer {
     private int id;

@@ -2,7 +2,7 @@ package application.services;
 
 import api.interfaces.ICategoryService;
 import com.google.gson.*;
-import question.model.Category;
+import application.model.Category;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

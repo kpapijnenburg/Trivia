@@ -1,9 +1,8 @@
 package api.question;
 
-import question.model.Answer;
-import question.model.Question;
+import application.model.Answer;
+import application.model.Question;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IQuestionContext {

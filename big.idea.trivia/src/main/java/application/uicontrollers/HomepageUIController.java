@@ -1,15 +1,15 @@
 package application.uicontrollers;
 
 import application.Application;
-import game.model.Player;
-import game.model.SinglePlayerGame;
+import application.model.Player;
+import application.model.SinglePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import question.model.Enums.Difficulty;
+import application.model.Enums.Difficulty;
 
 import java.io.IOException;
 import java.util.Optional;

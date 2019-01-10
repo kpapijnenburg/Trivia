@@ -14,7 +14,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import user.model.User;
+import application.model.User;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -75,9 +75,6 @@ public class UserService implements IUserService {
         return jsonConverter.fromJson(body, User.class);
 
     }
-
-
-
 
     public void register(String name, String password) throws IOException, NonUniqueUsernameException {
         CloseableHttpClient client = HttpClients.createDefault();

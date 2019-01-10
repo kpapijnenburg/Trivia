@@ -1,10 +1,8 @@
 package websocket.server;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import game.model.Game;
-import game.model.MultiPlayerGame;
+import application.model.MultiPlayerGame;
 import websocket.shared.Message;
 import websocket.shared.Operation;
 

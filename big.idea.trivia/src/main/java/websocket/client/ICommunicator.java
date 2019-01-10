@@ -9,40 +9,40 @@ public interface ICommunicator {
     /**
      * Start the connection.
      */
-    public void start();
+    void start();
 
     /**
      * Stop the connection.
      */
-    public void stop();
+    void stop();
 
     /**
      * Register a property.
      *
      * @param property
      */
-    public void register(String property) throws IOException;
+    void register(String property) throws IOException;
 
     /**
      * Unregister a property.
      *
      * @param property
      */
-    public void unregister(String property) throws IOException;
+    void unregister(String property) throws IOException;
 
     /**
      * Subscribe to a property.
      *
      * @param property
      */
-    public void subscribe(String property) throws IOException;
+    void subscribe(String property) throws IOException;
 
     /**
      * Unsubscribe from a property.
      *
      * @param property
      */
-    public void unsubscribe(String property) throws IOException;
+    void unsubscribe(String property) throws IOException;
 
     /**
      * Update a property by sending a message to all clients
@@ -50,8 +50,15 @@ public interface ICommunicator {
      *
      * @param message the message to be sent
      */
-    public void update(Message message) throws IOException;
+    void update(Message message) throws IOException;
 
-    public void connect(String channel) throws IOException;
+    /**
+     * Sends all current game objects connected to the lobby channel
+     *
+     *
+     * @param channel the message to be sent
+     */
+
+    void connect(String channel) throws IOException;
 
 }

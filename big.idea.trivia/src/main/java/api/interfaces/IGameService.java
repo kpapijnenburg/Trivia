@@ -1,7 +1,6 @@
 package api.interfaces;
 
-import game.model.MultiPlayerGame;
-import game.model.SinglePlayerGame;
+import application.model.MultiPlayerGame;
 
 import java.io.IOException;
 

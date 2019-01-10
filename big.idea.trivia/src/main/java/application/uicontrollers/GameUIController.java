@@ -3,12 +3,12 @@ package application.uicontrollers;
 import application.Application;
 import application.services.GameService;
 import application.services.QuestionService;
-import game.model.SinglePlayerGame;
+import application.model.SinglePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import question.model.Enums.Difficulty;
-import question.model.Question;
+import application.model.Enums.Difficulty;
+import application.model.Question;
 
 import javax.swing.*;
 import java.io.IOException;

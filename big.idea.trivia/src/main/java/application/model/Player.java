@@ -1,7 +1,5 @@
-package game.model;
+package application.model;
 
-
-import user.model.User;
 
 public class Player extends User {
     private int playerId;

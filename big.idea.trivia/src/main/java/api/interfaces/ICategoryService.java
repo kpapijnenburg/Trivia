@@ -1,6 +1,6 @@
 package api.interfaces;
 
-import question.model.Category;
+import application.model.Category;
 
 import java.util.List;
 

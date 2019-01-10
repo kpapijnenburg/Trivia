@@ -1,6 +1,6 @@
 package api.interfaces;
 
-import question.model.Question;
+import application.model.Question;
 
 import java.sql.SQLException;
 import java.util.List;

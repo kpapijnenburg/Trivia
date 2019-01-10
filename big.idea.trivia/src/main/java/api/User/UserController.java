@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import user.model.User;
-
-import java.io.IOException;
+import application.model.User;
 
 @RestController
 public class UserController implements IUserService {

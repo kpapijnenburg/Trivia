@@ -2,9 +2,8 @@ package application.uicontrollers;
 
 import application.Application;
 import application.services.CategoryService;
-import game.model.Game;
-import game.model.MultiPlayerGame;
-import game.model.SinglePlayerGame;
+import application.model.Game;
+import application.model.SinglePlayerGame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import question.model.Category;
+import application.model.Category;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
