@@ -8,5 +8,4 @@ public enum GameState {
     PLAYER_B_TURN,
     YOUR_TURN,
     OPPONENT_TURN
-
 }

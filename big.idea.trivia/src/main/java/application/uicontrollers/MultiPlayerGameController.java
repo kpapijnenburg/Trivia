@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static application.model.GameState.PLAYER_B_TURN;
 
 public class MultiPlayerGameController implements Observer {
     public Label lb_score_playerA;
@@ -79,33 +82,35 @@ public class MultiPlayerGameController implements Observer {
         } else {
             startGame();
         }
-        // After each initialization the UI should be updated.
-        requestUpdate();
+//        After each initialization the UI should be updated.
+//        requestUpdate();
     }
 
     private void startGame() throws IOException {
         if (game.getGameState() == GameState.NOT_STARTED) {
-            game.setGameState(GameState.PLAYER_B_TURN);
+            game.setGameState(PLAYER_B_TURN);
+            getQuestion();
             setTurn();
             requestUpdate();
         }
     }
 
-    private void getQuestion() throws IOException {
+    private void getQuestion() {
         game.setCurrentQuestion(questionService.getQuestion(game.getCategory().getId(), game.getDifficulty().toString()));
-        requestUpdate();
     }
 
     private void waitForPlayerB() throws IOException {
         game.setGameState(GameState.NOT_STARTED);
         for (Button button : buttons) {
-            button.setDisable(false);
+            button.setDisable(true);
         }
         requestUpdate();
     }
 
     private void updateUI() {
         Platform.setImplicitExit(false);
+
+        // Using platform run later to secure the UI thread is free when the UI needs to be updated.
         Platform.runLater(() -> {
             // Update player A information
             Player playerA = game.getPlayerA();
@@ -126,62 +131,60 @@ public class MultiPlayerGameController implements Observer {
             lb_status.setText(game.getGameState().toString());
 
             if (game.getCurrentQuestion() != null) {
-                // Update question text and buttons if a question has been retrieved.
-                txt_question.setText(game.getCurrentQuestion().getQuestion());
-                setButtons();
+
             }
         });
     }
 
-    private void setButtons() {
+    private void resetButtons() {
+        Platform.runLater(() -> {
+            for (Button button : buttons) {
+                button.setText("");
+            }
+        });
+    }
+
+
+    private void setButtonsForPlayer(Player p) {
+        boolean isThisPlayer = p.getName().equals(Application.currentUser.getName());
         resetButtons();
         Collections.shuffle(buttons);
+        AtomicInteger i = new AtomicInteger();
 
-        for (int i = 0; i < game.getCurrentQuestion().getAnswers().size(); i++) {
-            buttons.get(i).setText(game.getCurrentQuestion().getAnswers().get(i).getAnswer());
-        }
+        Platform.runLater(() -> {
+            for (Button button : buttons) {
+                button.setDisable(!isThisPlayer);
+                if (isThisPlayer) {
+                    txt_question.setText(game.getCurrentQuestion().getQuestion());
+                    button.setText(game.getCurrentQuestion().getAnswers().get(i.get()).getAnswer());
+                    i.getAndIncrement();
+                }else {
+                    txt_question.setText("");
+                    button.setText("");
+                }
+
+            }
+        });
+
     }
 
-    private void resetButtons() {
-        for (Button button : buttons) {
-            button.setText("");
-        }
-    }
-
-
-    private void setTurn() throws IOException {
-        getQuestion();
+    private void setTurn() {
         switch (game.getGameState()) {
             case PLAYER_A_TURN:
-                if (game.getPlayerA().getName().equals(Application.currentUser.getName())) {
-                    for (Button button : buttons) {
-                        button.setDisable(false);
-                    }
-                } else {
-                    for (Button button : buttons) {
-                        button.setDisable(true);
-                        resetButtons();
-                    }
-                }
+                setButtonsForPlayer(game.getPlayerA());
                 break;
             case PLAYER_B_TURN:
-                if (game.getPlayerB().getName().equals(Application.currentUser.getName())) {
-                    for (Button button : buttons) {
-                        button.setDisable(false);
-                        resetButtons();
-                    }
-                } else {
-                    for (Button button : buttons) {
-                        button.setDisable(true);
-                    }
-                }
+                setButtonsForPlayer(game.getPlayerB());
+                break;
+            default:
+                System.out.println("Unkown game state.");
         }
     }
 
     private void switchGameState() {
         switch (game.getGameState()) {
             case PLAYER_A_TURN:
-                game.setGameState(GameState.PLAYER_B_TURN);
+                game.setGameState(PLAYER_B_TURN);
                 break;
             case PLAYER_B_TURN:
                 game.setGameState(GameState.PLAYER_A_TURN);
@@ -201,7 +204,7 @@ public class MultiPlayerGameController implements Observer {
     }
 
     public void btnQuitClicked(ActionEvent event) {
-
+        //todo quit implementeren.
     }
 
     public void btnAnswerAClicked(ActionEvent event) throws IOException {
@@ -237,12 +240,10 @@ public class MultiPlayerGameController implements Observer {
         } else {
             awardStrike();
         }
-
-        setTurn();
     }
 
     private void awardStrike() throws IOException {
-        if (game.getGameState() == GameState.PLAYER_B_TURN) {
+        if (game.getGameState() == PLAYER_B_TURN) {
             game.getPlayerB().setStrikes(1);
         } else {
             game.getPlayerA().setStrikes(1);
@@ -253,6 +254,7 @@ public class MultiPlayerGameController implements Observer {
         if (game.getPlayerA().getStrikes() >= 3 || game.getPlayerB().getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
 
+            // todo save multi player game implementeren.
             //gameService.saveMultiPlayerGame();
             game.setGameState(GameState.FINISHED);
             application.openStage("homepage_ui.fxml");
@@ -277,7 +279,7 @@ public class MultiPlayerGameController implements Observer {
             points = 3;
         }
 
-        if (game.getGameState() == GameState.PLAYER_B_TURN) {
+        if (game.getGameState() == PLAYER_B_TURN) {
             game.getPlayerB().setScore(points);
         } else {
             game.getPlayerA().setScore(points);
@@ -296,6 +298,18 @@ public class MultiPlayerGameController implements Observer {
 
         game = gson.fromJson(content, MultiPlayerGame.class);
 
+
+        if (game.getGameState() == PLAYER_B_TURN || game.getGameState() == GameState.PLAYER_A_TURN) {
+            getQuestion();
+            setTurn();
+        }
+
+        if (game.getGameState() == GameState.FINISHED){
+            //todo implement finish game
+            return;
+        }
+
         updateUI();
+
     }
 }
