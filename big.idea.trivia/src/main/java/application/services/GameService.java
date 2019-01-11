@@ -41,7 +41,7 @@ public class GameService implements IGameService {
     @Override
     public void saveMultiPlayer(int playerAId, int playerBId, int playerAScore, int playerBScore, int winnerId) {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(baseUrl + "/savemultiplayer");
+        HttpPost httpPost = new HttpPost(baseUrl + "/savemultiplayer?");
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("playerAId", Integer.toString(playerAId )));

@@ -94,7 +94,7 @@ public class LobbyUIController implements Observer {
         MultiPlayerGame.setInstance(game);
 
         if (game != null && user != null){
-            game.setPlayerB(new Player(user.getName(), 0,0));
+            game.setPlayerB(new Player(user.getId(), user.getName()));
             MultiPlayerGame.setInstance(game);
             // Subscribe to playerA's game and unsubscribe to the lobby.
             try {
@@ -110,7 +110,6 @@ public class LobbyUIController implements Observer {
                 e.printStackTrace();
             }
         }
-
     }
 
 
@@ -148,7 +147,7 @@ public class LobbyUIController implements Observer {
         multiPlayerGame.setCategory(category);
 
         User user = Application.currentUser;
-        Player player = new Player(user.getName(), 0, 0);
+        Player player = new Player(user.getId(), user.getName());
         multiPlayerGame.setPlayerA(player);
 
         broadcast(multiPlayerGame);
@@ -197,22 +196,17 @@ public class LobbyUIController implements Observer {
             case UPDATE:
                 MultiPlayerGame updateGame = gson.fromJson(content, MultiPlayerGame.class);
                 games.add(updateGame);
-                System.out.println("added update game");
                 break;
             case CONNECTED:
                 if (content.equals("[]")) {
-                    System.out.println("Empty array skipped.");
+
                 } else {
                     games.clear();
-
-                    System.out.println("Cleared list");
-
                     JsonArray array = gson.fromJson(content, JsonArray.class);
 
                     for (JsonElement jsonGame : array) {
                         MultiPlayerGame connectedGame = gson.fromJson(jsonGame, MultiPlayerGame.class);
                         games.add(connectedGame);
-                        System.out.println("Added connected game");
                     }
                 }
         }

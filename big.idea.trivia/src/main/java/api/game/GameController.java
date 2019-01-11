@@ -20,7 +20,7 @@ public class GameController implements IGameService {
     }
 
     @Override
-    @RequestMapping(value = "/game/savemultiplayer", method = RequestMethod.GET)
+    @RequestMapping(value = "/game/savemultiplayer", method = RequestMethod.POST)
     public void saveMultiPlayer(@RequestParam(value = "playerAId")int playerAId,
                                 @RequestParam(value = "playerBId")int playerBId,
                                 @RequestParam(value = "playerAScore") int playerAscore,

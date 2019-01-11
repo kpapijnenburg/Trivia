@@ -79,12 +79,6 @@ public class ServerWebSocket {
                     }
                     break;
                 case UNREGISTER:
-                    if (channels.get(channel) != null){
-                        channels.remove(channel);
-                        if (!channel.equals("Lobby")){
-                            removeGame(s);
-                        }
-                    }
                     break;
                 case SUBSCRIBE:
                     //subscribe channel if this has not been done.

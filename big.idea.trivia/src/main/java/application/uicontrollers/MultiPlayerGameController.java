@@ -83,8 +83,6 @@ public class MultiPlayerGameController implements Observer {
         } else {
             startGame();
         }
-//        After each initialization the UI should be updated.
-//        requestUpdate();
     }
 
     private void startGame() throws IOException {
@@ -214,9 +212,8 @@ public class MultiPlayerGameController implements Observer {
 
             gameService.saveMultiPlayer(playerA.getId(), playerB.getId(), playerA.getScore(), playerB.getScore(), Application.currentUser.getId());
             game.setGameState(GameState.FINISHED);
+            returnHome();
         }
-
-        communicator.unregister(game.getGameName());
     }
 
     public void btnAnswerAClicked(ActionEvent event) throws IOException {
@@ -269,11 +266,18 @@ public class MultiPlayerGameController implements Observer {
         }
     }
 
-    private void returnHome() throws IOException {
-        application.openStage("homepage_ui.fxml");
+    private void returnHome() {
+        Platform.runLater(() -> {
+            try {
+                application.openStage("homepage_ui.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
-        stageToClose.close();
+            Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
+            stageToClose.close();
+        });
+
     }
 
 
@@ -309,21 +313,15 @@ public class MultiPlayerGameController implements Observer {
 
         game = gson.fromJson(content, MultiPlayerGame.class);
 
+        if (game.getGameState() == GameState.FINISHED) {
+            returnHome();
+        }
 
         if (game.getGameState() == PLAYER_B_TURN || game.getGameState() == GameState.PLAYER_A_TURN) {
             getQuestion();
             setTurn();
         }
 
-        if (game.getGameState() == GameState.FINISHED) {
-            try {
-                returnHome();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         updateUI();
-
     }
 }

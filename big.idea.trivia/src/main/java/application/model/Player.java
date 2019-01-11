@@ -39,6 +39,13 @@ public class Player extends User {
 
     }
 
+    public Player(int id, String name) {
+        super(id, name);
+        this.playerId = id;
+        this.strikes = 0;
+        this.score = 0;
+    }
+
     public Player(int playerId, int strikes, int score) {
         this.playerId = playerId;
         this.strikes = strikes;
