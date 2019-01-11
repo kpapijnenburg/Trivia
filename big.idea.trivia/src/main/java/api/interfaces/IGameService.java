@@ -13,5 +13,5 @@ public interface IGameService {
     /**
      * Saves a multiplayer game
      */
-    void saveMultiPlayer(MultiPlayerGame game);
+    void saveMultiPlayer(int playerAId, int playerBId, int playerAScore, int playerBScore, int winnerId);
 }

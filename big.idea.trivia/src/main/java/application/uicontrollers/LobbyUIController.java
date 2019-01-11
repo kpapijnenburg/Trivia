@@ -75,7 +75,6 @@ public class LobbyUIController implements Observer {
         ObservableList<String> observableList = FXCollections.observableList(names);
 
         cmb_category.setItems(observableList);
-
     }
 
     public void btnBackClicked(ActionEvent actionEvent) throws IOException {
@@ -111,6 +110,7 @@ public class LobbyUIController implements Observer {
                 e.printStackTrace();
             }
         }
+
     }
 
 

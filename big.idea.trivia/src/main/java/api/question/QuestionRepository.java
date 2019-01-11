@@ -13,7 +13,7 @@ public class QuestionRepository {
         this.context = context;
     }
 
-    public List<Question> getQuestions(int categoryId, String difficulty) throws SQLException, ClassNotFoundException {
+    public List<Question> getQuestions(int categoryId, String difficulty) {
         return context.getQuestions(categoryId, difficulty);
     }
 

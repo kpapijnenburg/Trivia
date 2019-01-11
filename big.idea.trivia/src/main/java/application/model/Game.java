@@ -68,6 +68,4 @@ public class Game {
         this.questions = questions;
     }
 
-
-
 }

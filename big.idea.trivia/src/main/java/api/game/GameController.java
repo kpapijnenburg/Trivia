@@ -20,7 +20,13 @@ public class GameController implements IGameService {
     }
 
     @Override
-    public void saveMultiPlayer(MultiPlayerGame game) {
+    @RequestMapping(value = "/game/savemultiplayer", method = RequestMethod.GET)
+    public void saveMultiPlayer(@RequestParam(value = "playerAId")int playerAId,
+                                @RequestParam(value = "playerBId")int playerBId,
+                                @RequestParam(value = "playerAScore") int playerAscore,
+                                @RequestParam(value = "playerBScore") int playerBScore,
+                                @RequestParam(value = "winnerId") int winnerId ) {
 
+        repository.saveMultiPlayerGame(playerAId, playerBId, playerAscore, playerBScore, winnerId);
     }
 }

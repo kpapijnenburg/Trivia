@@ -1,5 +1,6 @@
 package websocket.server;
 
+import application.model.Game;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import application.model.MultiPlayerGame;
@@ -78,7 +79,12 @@ public class ServerWebSocket {
                     }
                     break;
                 case UNREGISTER:
-                    // breaking immediately because other clients may be subscribed
+                    if (channels.get(channel) != null){
+                        channels.remove(channel);
+                        if (!channel.equals("Lobby")){
+                            removeGame(s);
+                        }
+                    }
                     break;
                 case SUBSCRIBE:
                     //subscribe channel if this has not been done.
@@ -116,6 +122,18 @@ public class ServerWebSocket {
                     break;
                 default:
                     System.out.println("Cannot parse JSON " + s);
+            }
+        }
+    }
+
+    private void removeGame(String s) {
+        Gson gson = new Gson();
+
+        Message message = gson.fromJson(s, Message.class);
+
+        for (MultiPlayerGame game: games){
+            if (game.getGameName().equals(message.getChannel())){
+                games.remove(game);
             }
         }
     }

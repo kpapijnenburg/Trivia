@@ -1,6 +1,7 @@
 package application.uicontrollers;
 
 import application.Application;
+import application.model.Game;
 import application.services.GameService;
 import application.services.QuestionService;
 import com.google.gson.Gson;
@@ -110,7 +111,7 @@ public class MultiPlayerGameController implements Observer {
     private void updateUI() {
         Platform.setImplicitExit(false);
 
-        // Using platform run later to secure the UI thread is free when the UI this runnable runs.
+        // Using platform run later to secure the UI thread is free when this runnable executes.
         Platform.runLater(() -> {
             // Update player A information
             Player playerA = game.getPlayerA();
@@ -154,11 +155,10 @@ public class MultiPlayerGameController implements Observer {
                     txt_question.setText(game.getCurrentQuestion().getQuestion());
                     button.setText(game.getCurrentQuestion().getAnswers().get(i.get()).getAnswer());
                     i.getAndIncrement();
-                }else {
+                } else {
                     txt_question.setText("");
                     button.setText("");
                 }
-
             }
         });
 
@@ -199,8 +199,24 @@ public class MultiPlayerGameController implements Observer {
         communicator.update(message);
     }
 
-    public void btnQuitClicked(ActionEvent event) {
-        //todo quit implementeren.
+    public void btnQuitClicked(ActionEvent event) throws IOException {
+        finishGame();
+    }
+
+    private void finishGame() throws IOException {
+        GameState state = game.getGameState();
+
+        if (state == GameState.NOT_STARTED) {
+            returnHome();
+        } else {
+            Player playerA = game.getPlayerA();
+            Player playerB = game.getPlayerB();
+
+            gameService.saveMultiPlayer(playerA.getId(), playerB.getId(), playerA.getScore(), playerB.getScore(), Application.currentUser.getId());
+            game.setGameState(GameState.FINISHED);
+        }
+
+        communicator.unregister(game.getGameName());
     }
 
     public void btnAnswerAClicked(ActionEvent event) throws IOException {
@@ -249,16 +265,15 @@ public class MultiPlayerGameController implements Observer {
 
         if (game.getPlayerA().getStrikes() >= 3 || game.getPlayerB().getStrikes() >= 3) {
             JOptionPane.showMessageDialog(null, "Game over!");
-
-            // todo save multi player game implementeren.
-            //gameService.saveMultiPlayerGame();
-            game.setGameState(GameState.FINISHED);
-            application.openStage("homepage_ui.fxml");
-
-            Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
-            stageToClose.close();
+            finishGame();
         }
+    }
 
+    private void returnHome() throws IOException {
+        application.openStage("homepage_ui.fxml");
+
+        Stage stageToClose = (Stage) btn_answerA.getScene().getWindow();
+        stageToClose.close();
     }
 
 
@@ -300,9 +315,12 @@ public class MultiPlayerGameController implements Observer {
             setTurn();
         }
 
-        if (game.getGameState() == GameState.FINISHED){
-            //todo implement finish game
-            return;
+        if (game.getGameState() == GameState.FINISHED) {
+            try {
+                returnHome();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         updateUI();
