@@ -16,7 +16,7 @@ public class ClientWebSocket extends Communicator {
     // using a singleton to ensure there is only one instance of this client.
     private static ClientWebSocket instance = null;
 
-    private final String uri = "ws://localhost:9000/game/";
+    private final String uri = "ws://localhost:9005/game/";
     private Session session;
     private String message;
 

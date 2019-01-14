@@ -13,7 +13,6 @@ public class Game {
     private Category category;
     //region Getter/Setter
 
-
     public int getGameId() {
         return gameId;
     }
